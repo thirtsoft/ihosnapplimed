@@ -1,21 +1,19 @@
-package com.iho.sn.referentiel.entity;
+package com.iho.sn.referentiel.remote.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-@Entity
-@Table(name = "iho_category_medicament")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class CategoryMedicament extends ReferencetielEntity implements Serializable {
+public class LitDetailDs {
+
+    private Long id;
+
+    private String numero;
+
+    private ChambreDs chambreDs;
 
     private int actif;
 
@@ -29,5 +27,4 @@ public class CategoryMedicament extends ReferencetielEntity implements Serializa
         else
             this.actif = 0;
     }
-
 }

@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "iho_category_medicament")
+@Table(name = "iho_tranche_age")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryMedicament extends ReferencetielEntity implements Serializable {
+public class TrancheAge extends ReferencetielEntity implements Serializable {
 
     private int actif;
 
@@ -29,5 +29,4 @@ public class CategoryMedicament extends ReferencetielEntity implements Serializa
         else
             this.actif = 0;
     }
-
 }

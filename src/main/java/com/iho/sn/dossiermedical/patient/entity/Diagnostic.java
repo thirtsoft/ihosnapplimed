@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "patient")
+@Table(name = "iho_diagnostic")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

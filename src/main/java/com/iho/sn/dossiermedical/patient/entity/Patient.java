@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "patient")
+@Table(name = "iho_patient")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

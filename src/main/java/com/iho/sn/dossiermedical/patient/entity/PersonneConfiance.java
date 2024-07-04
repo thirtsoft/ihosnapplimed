@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "personne_confiance")
+@Table(name = "iho_personne_confiance")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

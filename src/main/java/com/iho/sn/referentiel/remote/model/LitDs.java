@@ -1,21 +1,22 @@
-package com.iho.sn.referentiel.entity;
+package com.iho.sn.referentiel.remote.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-@Entity
-@Table(name = "iho_category_medicament")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class CategoryMedicament extends ReferencetielEntity implements Serializable {
+public class LitDs {
+
+    private Long id;
+
+    @NotEmpty(message = "Le code ne doit pas etre null ou vide")
+    private String numero;
+
+    @NotEmpty(message = "Le code de la chambre ne doit pas etre null ou vide")
+    private Long ChambreId;
 
     private int actif;
 
