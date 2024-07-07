@@ -64,7 +64,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         CategoryMedicament medicamentResult = categoryMedicamentRepository.findCategoryMedicamentById(id);
         if (medicamentResult == null) {
-            throw new ReferentielException("La catégorie de médicament n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         medicamentResult.setCode(medicament.getCode());
         medicamentResult.setLibelle(medicament.getLibelle());
@@ -123,10 +123,11 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Medicament medicamentResult = medicamentRepository.findCategoryMedicamentById(id);
         if (medicamentResult == null) {
-            throw new ReferentielException("Ce Médicament n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         medicamentResult.setCode(medicament.getCode());
         medicamentResult.setLibelle(medicament.getLibelle());
+        medicamentResult.setCategoryMedicamentId(medicament.getCategoryMedicamentId());
         Optional<Medicament> byCode = medicamentRepository.findByCode(medicament.getCode());
         if (medicament.getId() == null && byCode.isPresent()
                 || (medicament.getId() != null && byCode.isPresent() && !byCode.get().getId().equals(medicament.getId()))) {
@@ -182,7 +183,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Chambre chambreResult = chambreRepository.findChambreById(id);
         if (chambreResult == null) {
-            throw new ReferentielException("La chambre n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         chambreResult.setCode(chambre.getCode());
         chambreResult.setLibelle(chambre.getLibelle());
@@ -240,7 +241,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Lit litResult = litRepository.findLitById(id);
         if (litResult == null) {
-            throw new ReferentielException("Le lit n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         litResult.setNumero(lit.getNumero());
         litResult.setChambreId(lit.getChambreId());
@@ -298,7 +299,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         ServicePartenaire servicePartenaireResult = servicePartenaireRepository.findServicePartenaireById(id);
         if (servicePartenaireResult == null) {
-            throw new ReferentielException("Le ServicePartenaire n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         servicePartenaireResult.setCode(servicePartenaire.getCode());
         servicePartenaireResult.setLibelle(servicePartenaire.getLibelle());
@@ -357,7 +358,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         GroupeSanguin groupeSanguinResult = groupeSanguinRepository.findGroupeSanguinById(id);
         if (groupeSanguinResult == null) {
-            throw new ReferentielException("Le groupe sanguin n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         groupeSanguinResult.setCode(groupeSanguin.getCode());
         groupeSanguinResult.setDescription(groupeSanguin.getDescription());
@@ -415,7 +416,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         TrancheAge trancheAgeResult = trancheAgeRepository.findTrancheAgeById(id);
         if (trancheAgeResult == null) {
-            throw new ReferentielException("La Tranche d'Age n'est pas trouvé");
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
         }
         trancheAgeResult.setCode(trancheAge.getCode());
         trancheAgeResult.setLibelle(trancheAge.getLibelle());

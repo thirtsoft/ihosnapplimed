@@ -30,7 +30,7 @@ public class PatientController implements PatientApi {
     @Override
     public ResponsePatientDs creerPatient(PatientAddDs patientAddDs) {
         try {
-            Patient savedPatient = patientService.savePatient(patientAssembler.assembleUpdatePatientFromDs(patientAddDs));
+            Patient savedPatient = patientService.savePatient(patientAssembler.assemblePatientFromPatientAddDs(patientAddDs));
             PatientListDs patientMinDs = patientAssembler.assemblePatientListDsFrom(savedPatient);
             return new ResponsePatientDs("OK", "", patientMinDs);
         } catch (Exception e) {

@@ -13,7 +13,8 @@ public class MedicamentDs {
     private Long id;
 
     @NotEmpty(message = "Le code de la catégory ne doit pas etre null ou vide")
-    private Long categoryMedicamentId;
+    //  private Long categoryMedicamentId;
+    private CategoryMedicamentDs categoryMedicamentDs;
 
     @NotEmpty(message = "Le code ne doit pas etre null ou vide")
     private String code;

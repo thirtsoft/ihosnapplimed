@@ -14,7 +14,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Chambre extends ReferencetielEntity implements Serializable {
 
     private int nbreLit;

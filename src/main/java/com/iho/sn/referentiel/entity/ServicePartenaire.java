@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ServicePartenaire extends ReferencetielEntity implements Serializable {
 
     @Column(columnDefinition = "TEXT")

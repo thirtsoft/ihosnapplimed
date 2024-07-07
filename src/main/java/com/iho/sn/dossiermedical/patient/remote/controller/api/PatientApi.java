@@ -23,7 +23,7 @@ import java.util.List;
 
 import static com.iho.sn.utils.ApiUrlAccess.APP_ROOT;
 
-@RequestMapping(value = APP_ROOT + "/patient")
+@RequestMapping(value = "/patient")
 public interface PatientApi {
 
     @PostMapping(value = "/save")

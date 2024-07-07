@@ -1,6 +1,6 @@
 package com.iho.sn.referentiel.entity;
 
-import com.iho.sn.config.AbstractAuditableEntity;
+import com.iho.sn.admin.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.iho.sn.referentiel.entity;
 
-import com.iho.sn.config.AbstractAuditableEntity;
+import com.iho.sn.admin.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -17,7 +17,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Lit extends AbstractAuditableEntity implements Serializable {
 
     @Column(unique = true)
@@ -25,6 +24,8 @@ public class Lit extends AbstractAuditableEntity implements Serializable {
 
     @Column(name = "chambre_uid", nullable = false)
     private Long chambreId;
+
+    private boolean est_disponible;
 
     private int actif;
 

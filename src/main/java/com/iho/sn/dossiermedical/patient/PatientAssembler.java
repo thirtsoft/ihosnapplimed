@@ -26,7 +26,7 @@ public class PatientAssembler {
         return patients.stream().map(this::assemblePatientListDsFrom).toList();
     }
 
-    private PatientAddDs assemblePatientAddDsFromPatient(Patient patient) {
+    public PatientAddDs assemblePatientAddDsFromPatient(Patient patient) {
         PatientAddDs patientAddDs = new PatientAddDs();
         patientAddDs.setCode(patient.getCode());
         patientAddDs.setNom(patient.getNom());
@@ -46,7 +46,7 @@ public class PatientAssembler {
         return patientAddDs;
     }
 
-    private Patient assemblePatientFromPatientAddDs(PatientAddDs patient) {
+    public Patient assemblePatientFromPatientAddDs(PatientAddDs patient) {
         Patient patientAddDs = new Patient();
         patientAddDs.setCode(patient.getCode());
         patientAddDs.setNom(patient.getNom());

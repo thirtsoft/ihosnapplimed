@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Medicament extends ReferencetielEntity implements Serializable {
 
     @Column(name = "category_medicament_uid" , nullable = false)

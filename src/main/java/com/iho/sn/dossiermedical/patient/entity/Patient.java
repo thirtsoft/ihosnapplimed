@@ -1,6 +1,6 @@
 package com.iho.sn.dossiermedical.patient.entity;
 
-import com.iho.sn.config.AbstractAuditableEntity;
+import com.iho.sn.admin.entities.AbstractAuditableEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Patient extends AbstractAuditableEntity implements Serializable {
 
     @Column(unique = true)

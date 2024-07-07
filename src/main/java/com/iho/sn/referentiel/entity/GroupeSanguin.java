@@ -1,6 +1,6 @@
 package com.iho.sn.referentiel.entity;
 
-import com.iho.sn.config.AbstractAuditableEntity;
+import com.iho.sn.admin.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class GroupeSanguin extends AbstractAuditableEntity implements Serializable {
 
     @Column(unique = true)
