@@ -5,11 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Version;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -17,11 +15,10 @@ import java.io.Serializable;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @MappedSuperclass
-@Getter
-@Setter
-@RequiredArgsConstructor
-@ToString
-@SuperBuilder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "GenerationDeSequence")

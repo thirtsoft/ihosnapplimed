@@ -18,7 +18,7 @@ import java.util.List;
 public interface ActionApi {
 
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
-    void creerAction(@RequestBody ActionListDs actionListDs) throws Exception;
+    void creerAction(@RequestBody ActionListDs actionListDs);
 
     @PutMapping(value = "/edit/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     void updateAction(@PathVariable Long id, @RequestBody ActionListDs actionListDs);
