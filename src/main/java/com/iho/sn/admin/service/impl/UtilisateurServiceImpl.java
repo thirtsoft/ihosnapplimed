@@ -9,7 +9,7 @@ import com.iho.sn.admin.repository.ProfilRepository;
 import com.iho.sn.admin.repository.UtilisateurRepository;
 import com.iho.sn.admin.service.UtilisateurService;
 import com.iho.sn.exception.AlreadyExistsException;
-import com.iho.sn.exception.UtilisateurNotFoundException;
+import com.iho.sn.exception.EntityNotFoundException;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -89,7 +89,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public Utilisateur findUtilisateurByEmail(String mail) {
         return utilisateurRepository.findByEmail(mail)
-                .orElseThrow(() -> new UtilisateurNotFoundException(UTILISATEUR_INCONNU));
+                .orElseThrow(() -> new EntityNotFoundException(UTILISATEUR_INCONNU));
     }
 
     @Override
@@ -101,14 +101,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public String lireEnFonctionDuCode(String code) {
         var validation = validationService.lireEnFonctionDuCode(code);
         Utilisateur utilisateur = utilisateurRepository.findById(validation.getUtilisateur().getId())
-                .orElseThrow(() -> new UtilisateurNotFoundException(UTILISATEUR_INCONNU));
+                .orElseThrow(() -> new EntityNotFoundException(UTILISATEUR_INCONNU));
         return utilisateur.getEmail();
     }
 
     @Override
     public void createdPassword(String email, String password) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(email)
-                .orElseThrow(() -> new UtilisateurNotFoundException(UTILISATEUR_INCONNU));
+                .orElseThrow(() -> new EntityNotFoundException(UTILISATEUR_INCONNU));
         utilisateur.setMotdepasse(passwordEncoder.encode(password));
         utilisateur.setActif(true);
     }

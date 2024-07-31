@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +20,13 @@ public class UtilString {
     public static String genererMatricule() {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
         return "MAT_" + df.format(LocalDateTime.now());
+    }
+
+    public static String createNumeroHospitalisation(int poz) {
+        String numero = "";
+        DecimalFormat numFormat = new DecimalFormat("00000");
+        numero = "HOST_" + numFormat.format(poz);
+        return numero;
     }
 
     public static String getUrl(HttpServletRequest request) {

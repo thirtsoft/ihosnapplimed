@@ -25,7 +25,7 @@ public class ActionController implements ActionApi {
     private final ActionAssembler actionAssembler;
 
     @Override
-    public void creerAction(ActionListDs actionListDs) throws Exception {
+    public void creerAction(ActionListDs actionListDs) {
         actionService.saveAction(actionAssembler.assembleActionFromDs(actionListDs));
     }
 

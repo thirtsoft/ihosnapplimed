@@ -95,8 +95,6 @@ public class UtilisateurAssembler {
         utilisateurDs.setDateRecrutement(utilisateur.getDateRecrutement());
         utilisateurDs.setEducation(utilisateur.getEducation());
         utilisateurDs.setExperience(utilisateur.getExperience());
-        utilisateurDs.setCreationDate(utilisateur.getCreationDate());
-        utilisateurDs.setLastModifiedDate(utilisateur.getLastModifiedDate());
         return utilisateurDs;
     }
 }

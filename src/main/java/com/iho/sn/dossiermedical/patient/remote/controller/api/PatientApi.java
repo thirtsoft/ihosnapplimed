@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.util.List;
 
-import static com.iho.sn.utils.ApiUrlAccess.APP_ROOT;
-
 @RequestMapping(value = "/patient")
 public interface PatientApi {
 
