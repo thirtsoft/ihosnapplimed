@@ -38,8 +38,8 @@ public class ExceptionHandlerDemo extends ResponseEntityExceptionHandler {
                 .build(), NOT_FOUND);
     }
 
-    @ExceptionHandler(UtilisateurNotFoundException.class)
-    public ResponseEntity<ErrorDto> userNotFound(UtilisateurNotFoundException ex, WebRequest webRequest) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorDto> entityNotFound(EntityNotFoundException ex) {
         return new ResponseEntity<>(ErrorDto.builder()
                 .httpCode(NOT_FOUND.value())
                 .message(ex.getMessage())
