@@ -69,6 +69,7 @@ public class PatientAssembler {
     public PatientListDs assemblePatientListDsFrom(Patient patient) {
         PatientListDs patientMinDs = new PatientListDs();
         patientMinDs.setId(patient.getId());
+        patientMinDs.setCode(patient.getCode());
         patientMinDs.setNom(patient.getNom());
         patientMinDs.setPrenom(patient.getPrenom());
         patientMinDs.setTelephone(patient.getNumeroTelephone());

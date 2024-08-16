@@ -14,6 +14,8 @@ public class PatientListDs {
 
     private Long id;
 
+    private String code;
+
     private String prenom;
 
     private String nom;
