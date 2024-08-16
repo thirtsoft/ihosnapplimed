@@ -276,6 +276,14 @@ public class ReferentielServiceImpl implements ReferentielService {
         litRepository.save(findLit);
     }
 
+    @Override
+    public List<Lit> findAllByChambre(Long chambreId) {
+        if (chambreId == null) {
+            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+        }
+        return litRepository.findAllByChambre(chambreId);
+    }
+
     /************       ServicePartenaire   *********************/
     @Override
     public Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws Exception {

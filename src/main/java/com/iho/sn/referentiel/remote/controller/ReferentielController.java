@@ -201,6 +201,13 @@ public class ReferentielController implements ReferentielApi {
     }
 
     @Override
+    public ResponseEntity<List<LitDetailDs>> findAllLitByChambre(Long chambreId) {
+        return new ResponseEntity<>(referentielAssembler.assembleEntitiesFromListLit(
+                referentielService.findAllByChambre(chambreId)
+        ), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseMassageDs creerGroupeSanguin(GroupeSanguinDs groupeSanguinDs) {
         GroupeSanguin groupeSanguin = referentielAssembler.assembleGroupeSanguinfromDs(groupeSanguinDs);
         try {

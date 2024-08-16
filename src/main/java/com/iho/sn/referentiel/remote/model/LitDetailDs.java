@@ -15,7 +15,7 @@ public class LitDetailDs {
 
     private ChambreDs chambreDs;
 
-    private boolean est_disponible;
+    private int estDisponible;
 
     private int actif;
 

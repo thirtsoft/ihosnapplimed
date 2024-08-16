@@ -1,6 +1,7 @@
 package com.iho.sn.referentiel.remote.controller.api;
 
 import com.iho.sn.admin.remote.model.ResponseMassageDs;
+import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
 import com.iho.sn.referentiel.remote.model.ChambreDs;
 import com.iho.sn.referentiel.remote.model.GroupeSanguinDs;
@@ -92,6 +93,9 @@ public interface ReferentielApi {
 
     @DeleteMapping(value = "/lit/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteLit(@PathVariable Long id);
+
+    @GetMapping(value = "/lit/by-chambre/{chambreId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<LitDetailDs>> findAllLitByChambre(@PathVariable Long chambreId);
 
 
     /************************ GroupeSanguin ***************************/

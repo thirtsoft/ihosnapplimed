@@ -100,7 +100,7 @@ public class ReferentielAssembler {
         LitDs litDs = new LitDs();
         litDs.setId(lit.getId());
         litDs.setNumero(lit.getNumero());
-        litDs.setEst_disponible(lit.isEst_disponible());
+        litDs.setEstDisponible(lit.getEstDisponible());
         litDs.setActif(lit.isActif());
         if (lit.getChambreId() != null) {
             Chambre chambre = referentielService.findChambreById(lit.getChambreId());
@@ -113,7 +113,7 @@ public class ReferentielAssembler {
         Lit lit = new Lit();
         lit.setId(litDs.getId());
         lit.setNumero(litDs.getNumero());
-        lit.setEst_disponible(litDs.isEst_disponible());
+        lit.setEstDisponible(litDs.getEstDisponible());
         lit.setActif(litDs.isActif());
         if (litDs.getChambreDs() != null) {
             lit.setChambreId(litDs.getChambreDs().getId());
@@ -125,7 +125,7 @@ public class ReferentielAssembler {
         LitDetailDs litDs = new LitDetailDs();
         litDs.setId(lit.getId());
         litDs.setNumero(lit.getNumero());
-        litDs.setEst_disponible(lit.isEst_disponible());
+        litDs.setEstDisponible(lit.getEstDisponible());
         litDs.setActif(lit.isActif());
         if (lit.getChambreId() != null) {
             litDs.setChambreDs(assembleChambreDsfromEntity(

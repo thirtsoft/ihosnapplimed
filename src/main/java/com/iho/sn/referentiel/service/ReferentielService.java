@@ -7,6 +7,7 @@ import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -59,6 +60,8 @@ public interface ReferentielService {
     List<Lit> findAllLits();
 
     void deleteLit(Long id);
+
+    List<Lit> findAllByChambre(Long chambreId);
 
     Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws Exception;
 
