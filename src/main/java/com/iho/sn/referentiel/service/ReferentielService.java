@@ -7,6 +7,7 @@ import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.referentiel.entity.TypeDocument;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -98,4 +99,14 @@ public interface ReferentielService {
     List<TrancheAge> findAllTrancheAges();
 
     void deleteTrancheAge(Long id);
+
+    TypeDocument saveTypeDocument(TypeDocument typeDocument);
+
+    TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws Exception;
+
+    TypeDocument findTypeDocumentById(Long id);
+
+    List<TypeDocument> findAllTypeDocuments();
+
+    void deleteTypeDocument(Long id);
 }

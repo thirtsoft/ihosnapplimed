@@ -7,6 +7,7 @@ import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.exception.ReferentielException;
 import com.iho.sn.referentiel.repository.CategoryMedicamentRepository;
 import com.iho.sn.referentiel.repository.ChambreRepository;
@@ -15,6 +16,7 @@ import com.iho.sn.referentiel.repository.LitRepository;
 import com.iho.sn.referentiel.repository.MedicamentRepository;
 import com.iho.sn.referentiel.repository.ServicePartenaireRepository;
 import com.iho.sn.referentiel.repository.TrancheAgeRepository;
+import com.iho.sn.referentiel.repository.TypeDocumentRepository;
 import com.iho.sn.referentiel.service.ReferentielService;
 import com.iho.sn.utils.MessageException;
 import lombok.AllArgsConstructor;
@@ -41,6 +43,8 @@ public class ReferentielServiceImpl implements ReferentielService {
     private final ServicePartenaireRepository servicePartenaireRepository;
 
     private final TrancheAgeRepository trancheAgeRepository;
+
+    private final TypeDocumentRepository typeDocumentRepository;
 
     @Override
     public Long saveCategoryMedicament(CategoryMedicament medicament) throws Exception {
@@ -457,5 +461,51 @@ public class ReferentielServiceImpl implements ReferentielService {
         TrancheAge findTrancheAge = findTrancheAgeById(id);
         findTrancheAge.setActif(false);
         trancheAgeRepository.save(findTrancheAge);
+    }
+
+    /***************   TypeDocument   *********************/
+    @Override
+    public TypeDocument saveTypeDocument(TypeDocument typeDocument) {
+        if (typeDocument == null)
+            throw new ReferentielException("L'objet à sauvegarder est null");
+        if (typeDocument.getCode() == null || typeDocument.getCode().isEmpty())
+            throw new ReferentielException("Le code du type de document est obligatoire ");
+        if (typeDocument.getLibelle() == null || typeDocument.getLibelle().isEmpty())
+            throw new ReferentielException("Le libellé du type de document est obligatoire");
+        TypeDocument byCode = typeDocumentRepository.findTypeDocumentByCode(typeDocument.getCode());
+        if (typeDocument.getId() == null && byCode != null
+                || (typeDocument.getId() != null && byCode != null && !byCode.getId().equals(typeDocument.getId()))) {
+            throw new ReferentielException(String.format("Le code %s est déjà associé à un autre type de document .", typeDocument.getCode()));
+        }
+        typeDocument.setActif(true);
+        typeDocumentRepository.save(typeDocument);
+        return typeDocument;
+    }
+
+    @Override
+    public TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws Exception {
+        TypeDocument foundTypeDocument = findTypeDocumentById(id);
+        if (foundTypeDocument == null)
+            throw new ReferentielException("L'object à modifier n'est pas trouvé pas");
+        typeDocument.setId(id);
+        saveTypeDocument(typeDocument);
+        return typeDocument;
+    }
+
+    @Override
+    public TypeDocument findTypeDocumentById(Long id) {
+        return typeDocumentRepository.findTypeDocumentById(id);
+    }
+
+    @Override
+    public List<TypeDocument> findAllTypeDocuments() {
+        return typeDocumentRepository.findAll();
+    }
+
+    @Override
+    public void deleteTypeDocument(Long id) {
+        TypeDocument deleted = typeDocumentRepository.findTypeDocumentById(id);
+        deleted.setActif(false);
+        typeDocumentRepository.save(deleted);
     }
 }

@@ -7,6 +7,7 @@ import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
 import com.iho.sn.referentiel.remote.model.ChambreDs;
 import com.iho.sn.referentiel.remote.model.GroupeSanguinDs;
@@ -16,6 +17,7 @@ import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
 import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import com.iho.sn.referentiel.service.ReferentielService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -221,6 +223,28 @@ public class ReferentielAssembler {
         trancheAge.setLibelle(trancheAgeDs.getLibelle());
         trancheAge.setActif(trancheAgeDs.isActif());
         return trancheAge;
+    }
+
+    public TypeDocument assembleTypeDocumentFromDs(TypeDocumentDs typeDocumentDs) {
+        TypeDocument typeDocument = new TypeDocument();
+        typeDocument.setId(typeDocumentDs.getId());
+        typeDocument.setCode(typeDocumentDs.getCode());
+        typeDocument.setLibelle(typeDocumentDs.getLibelle());
+        typeDocument.setActif(typeDocumentDs.isActif());
+        return typeDocument;
+    }
+
+    public TypeDocumentDs assembleTypeDocumentFromEntity(TypeDocument typeDocument) {
+        TypeDocumentDs  typeDocumentDs = new TypeDocumentDs();
+        typeDocumentDs.setId(typeDocument.getId());
+        typeDocumentDs.setCode(typeDocument.getCode());
+        typeDocumentDs.setLibelle(typeDocument.getLibelle());
+        typeDocumentDs.setActif(typeDocument.isActif());
+        return typeDocumentDs;
+    }
+
+    public List<TypeDocumentDs> assembleEntitiesFromListTypeDocument(List<TypeDocument> typeDocuments) {
+        return typeDocuments.stream().map(this::assembleTypeDocumentFromEntity).toList();
     }
 
 

@@ -11,6 +11,7 @@ import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
 import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -145,4 +146,21 @@ public interface ReferentielApi {
 
     @DeleteMapping(value = "/trancheage/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteTrancheAge(@PathVariable Long id);
+
+    /***********************   TypeDocument    *******************/
+
+    @PostMapping(value = "/typedocument/save", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseMassageDs creerTypeDocument(@RequestBody TypeDocumentDs typeDocumentDs);
+
+    @PutMapping(value = "/typedocument/edit/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseMassageDs updateTypeDocument(@PathVariable Long id, @RequestBody TypeDocumentDs typeDocumentDs) throws Exception;
+
+    @GetMapping(value = "/typedocument/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<TypeDocumentDs> findById(@PathVariable Long id);
+
+    @GetMapping(value = "/typedocument/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<TypeDocumentDs>> findAllTypeDocuments();
+
+    @DeleteMapping(value = "/typedocument/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    void deleteTypeDocument(@PathVariable Long id);
 }
