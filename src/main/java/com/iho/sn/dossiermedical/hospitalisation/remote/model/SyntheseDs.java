@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -15,9 +15,7 @@ public class SyntheseDs {
 
     private String observation;
 
-    private Long circuitPatientId;
-
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     private String nomCompletAgent;
 }

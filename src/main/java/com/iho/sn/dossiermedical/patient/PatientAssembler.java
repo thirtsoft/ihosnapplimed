@@ -1,5 +1,7 @@
 package com.iho.sn.dossiermedical.patient;
 
+import com.iho.sn.dossiermedical.hospitalisation.assembler.HospitalisationAssembler;
+import com.iho.sn.dossiermedical.hospitalisation.service.HospitalisationService;
 import com.iho.sn.dossiermedical.patient.entity.Diagnostic;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
 import com.iho.sn.dossiermedical.patient.entity.PersonneConfiance;
@@ -21,6 +23,10 @@ import java.util.List;
 public class PatientAssembler {
 
     private final PatientService patientService;
+
+    private final HospitalisationService hospitalisationService;
+
+    private final HospitalisationAssembler hospitalisationAssembler;
 
     public List<PatientListDs> assembleEntitiesFrom(List<Patient> patients) {
         return patients.stream().map(this::assemblePatientListDsFrom).toList();
@@ -114,6 +120,10 @@ public class PatientAssembler {
         patientDetailDs.setEst_accompagne(patient.isEst_accompagne());
         if (patient.getDiagnostic() != null)
             patientDetailDs.setDiagnosticDs(assembleDiagnosticToDs(patient.getDiagnostic()));
+        if (patient.getCode() != null)
+            patientDetailDs.setHospitalisationDsList(hospitalisationAssembler
+                    .assembleHospitalisationsDetailsFromEntity(
+                            hospitalisationService.findAllByPatient(patient.getCode())));
         return patientDetailDs;
     }
 
@@ -238,7 +248,6 @@ public class PatientAssembler {
         diagnostic.setDiagnostic_associe(diagnosticDs.getDiagnostic_associe());
         return diagnostic;
     }
-
 
 
 }

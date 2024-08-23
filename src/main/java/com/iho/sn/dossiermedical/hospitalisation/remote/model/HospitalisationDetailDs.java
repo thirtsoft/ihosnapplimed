@@ -1,11 +1,11 @@
 package com.iho.sn.dossiermedical.hospitalisation.remote.model;
 
 import com.iho.sn.admin.remote.model.UtilisateurDs;
-import com.iho.sn.dossiermedical.patient.remote.model.PatientDetailDs;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -16,8 +16,6 @@ public class HospitalisationDetailDs {
     private Long id;
 
     private String numeroHospitalisation;
-
-    private PatientDetailDs patientDetailDs;
 
     private UtilisateurDs utilisateurDs;
 
@@ -33,11 +31,21 @@ public class HospitalisationDetailDs {
 
     private Long createdBy;
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     private String resume;
 
     private String nomCompletMedecin;
+
+    private String nomCompletPatient;
+
+    private String civilitePatient;
+
+    private String codePatient;
+
+    private String situationMatrimonialPatient;
+
+    private String telephonePatient;
 
     private int estTransfer;
 

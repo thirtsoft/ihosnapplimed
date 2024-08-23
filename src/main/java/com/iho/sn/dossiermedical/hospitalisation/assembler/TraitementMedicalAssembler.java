@@ -36,6 +36,7 @@ public class TraitementMedicalAssembler {
             String nomAgent = utilisateur.getPrenom() + ' ' + utilisateur.getNom();
             traitementMedicalDs.setNomCompletAgent(nomAgent);
         }
+        traitementMedicalDs.setCreatedDate(traitementMedical.getCreationDate());
         return traitementMedicalDs;
     }
 

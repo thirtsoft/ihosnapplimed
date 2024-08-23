@@ -46,6 +46,7 @@ public class ExamenComplementaireAssembler {
             String nomAgent = utilisateur.getPrenom() + " " + utilisateur.getNom();
             examenComplementaireDs.setNomCompletAgent(nomAgent);
         }
+        examenComplementaireDs.setCreatedDate(examenComplementaire.getCreationDate());
         return examenComplementaireDs;
     }
 
@@ -93,6 +94,7 @@ public class ExamenComplementaireAssembler {
             String nomAgent = utilisateur.getPrenom() + " " + utilisateur.getNom();
             examenComplementaireDs.setNomCompletAgent(nomAgent);
         }
+        examenComplementaireDs.setCreatedDate(examenComplementaire.getCreationDate());
         return examenComplementaireDs;
     }
 }

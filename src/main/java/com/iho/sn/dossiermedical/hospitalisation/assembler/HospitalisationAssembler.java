@@ -10,9 +10,7 @@ import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDet
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDs;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationListDs;
 import com.iho.sn.dossiermedical.hospitalisation.service.HospitalisationService;
-import com.iho.sn.dossiermedical.patient.PatientAssembler;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
-import com.iho.sn.dossiermedical.patient.remote.model.PatientDetailDs;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,7 +27,6 @@ public class HospitalisationAssembler {
     private final ExamenComplementaireAssembler examenComplementaireAssembler;
     private final TraitementMedicalAssembler traitementMedicalAssembler;
     private final SyntheseAssembler syntheseAssembler;
-    private final PatientAssembler patientAssembler;
     private final PatientService patientService;
     private final UtilisateurService utilisateurService;
     private final UtilisateurAssembler utilisateurAssembler;
@@ -60,6 +57,7 @@ public class HospitalisationAssembler {
             String nomAgent = utilisateur.getPrenom() + ' ' + utilisateur.getNom();
             hospitalisationListDs.setNomCompletMedecin(nomAgent);
         }
+        hospitalisationListDs.setCreateDate(hospitalisation.getCreationDate());
         return hospitalisationListDs;
     }
 
@@ -84,6 +82,7 @@ public class HospitalisationAssembler {
                     .assembleEntityToDs(hospitalisation.getSynthese()));
         if (hospitalisation.getDiscussion() != null)
             hospitalisationDs.setDiscussionDs(discussionAssembler.assembleEntityToDs(hospitalisation.getDiscussion()));
+        hospitalisationDs.setCreatedDate(hospitalisation.getCreationDate());
         return hospitalisationDs;
     }
 
@@ -153,8 +152,12 @@ public class HospitalisationAssembler {
         );
         if (hospitalisation.getCode() != null) {
             Patient patient = patientService.findByCode(hospitalisation.getCode());
-            PatientDetailDs patientDetailDs = patientAssembler.assemblePatientDetails(patient);
-            hospitalisationDetailDs.setPatientDetailDs(patientDetailDs);
+            String nomPatient = patient.getPrenom() + ' ' + patient.getNom();
+            hospitalisationDetailDs.setNomCompletPatient(nomPatient);
+            hospitalisationDetailDs.setCivilitePatient(patient.getCivilite());
+            hospitalisationDetailDs.setSituationMatrimonialPatient(patient.getSituationMatrimonial());
+            hospitalisationDetailDs.setTelephonePatient(patient.getNumeroTelephone());
+            hospitalisationDetailDs.setCodePatient(patient.getCode());
         }
         if (hospitalisation.getCreatedByUser() != null) {
             Utilisateur utilisateur = utilisateurService.findUtilisateurByMatricule(hospitalisation.getCreatedByUser());
@@ -162,7 +165,7 @@ public class HospitalisationAssembler {
             hospitalisationDetailDs.setUtilisateurDs(utilisateurDs);
             hospitalisationDetailDs.setNomCompletMedecin(utilisateur.getPrenom() + ' ' + utilisateur.getNom());
         }
-
+        hospitalisationDetailDs.setCreatedDate(hospitalisation.getCreationDate());
         return hospitalisationDetailDs;
     }
 

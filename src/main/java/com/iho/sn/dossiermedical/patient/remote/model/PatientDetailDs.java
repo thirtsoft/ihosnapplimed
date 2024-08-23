@@ -1,11 +1,15 @@
 package com.iho.sn.dossiermedical.patient.remote.model;
 
 
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDetailDs;
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDs;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,6 +48,8 @@ public class PatientDetailDs {
     private DiagnosticDs diagnosticDs;
 
     private int nombre_passage;
+
+    private List<HospitalisationDetailDs> hospitalisationDsList;
 
     private int actif;
 
