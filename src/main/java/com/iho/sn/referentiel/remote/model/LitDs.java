@@ -18,7 +18,7 @@ public class LitDs {
     @NotEmpty(message = "Le code de la chambre ne doit pas etre null ou vide")
     private ChambreDs chambreDs;
 
-    private boolean est_disponible;
+    private int estDisponible;
 
     private int actif;
 

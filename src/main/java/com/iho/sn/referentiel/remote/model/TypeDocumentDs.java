@@ -5,26 +5,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class LitDetailDs {
+@NoArgsConstructor
+public class TypeDocumentDs {
 
     private Long id;
 
-    private String numero;
+    private String code;
 
-    private ChambreDs chambreDs;
-
-    private int estDisponible;
+    private String libelle;
 
     private int actif;
 
     public boolean isActif() {
-        return actif == 1;
+        if (actif == 1)
+            return true;
+        else
+            return false;
     }
 
     public void setActif(boolean actif) {
-        if (actif)
+        if (actif == true)
             this.actif = 1;
         else
             this.actif = 0;

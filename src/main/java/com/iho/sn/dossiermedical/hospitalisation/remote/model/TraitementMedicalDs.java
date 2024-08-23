@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +15,13 @@ public class TraitementMedicalDs {
 
     private Long id;
 
-    private Long circuitPatientId;
-
     private String protocole;
 
     private String protocoleFileName;
 
     private List<TraitementMedicalItemDs> traitementMedicalItemDs;
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     private String nomCompletAgent;
 }

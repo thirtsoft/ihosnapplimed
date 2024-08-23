@@ -35,6 +35,7 @@ public class SyntheseAssembler {
             String nomAgent = utilisateur.getPrenom() + ' ' + utilisateur.getNom();
             syntheseDs.setNomCompletAgent(nomAgent);
         }
+        syntheseDs.setCreatedDate(synthese.getCreationDate());
         return syntheseDs;
     }
 

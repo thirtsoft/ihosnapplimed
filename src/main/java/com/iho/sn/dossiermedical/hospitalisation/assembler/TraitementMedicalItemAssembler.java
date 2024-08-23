@@ -3,6 +3,9 @@ package com.iho.sn.dossiermedical.hospitalisation.assembler;
 import com.iho.sn.dossiermedical.hospitalisation.entity.TraitementMedicalItem;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.TraitementMedicalItemDs;
 import com.iho.sn.dossiermedical.hospitalisation.service.TraitementMedicalService;
+import com.iho.sn.referentiel.entity.Medicament;
+import com.iho.sn.referentiel.remote.model.MedicamentDs;
+import com.iho.sn.referentiel.service.ReferentielService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,7 @@ import java.util.Set;
 public class TraitementMedicalItemAssembler {
 
     private final TraitementMedicalService traitementMedicalService;
+    private final ReferentielService referentielService;
 
 
     public List<TraitementMedicalItemDs> assembleEntitiesFrom(List<TraitementMedicalItem> traitementMedicalItemList) {
@@ -49,6 +53,10 @@ public class TraitementMedicalItemAssembler {
         traitementMedicalItemDs.setAdministrePar(traitementMedicalItem.getAdministrePar());
         traitementMedicalItemDs.setEstAdministre(traitementMedicalItem.getEstAdministre());
         traitementMedicalItemDs.setMedicamendId(traitementMedicalItem.getMedicamendId());
+        if (traitementMedicalItem.getMedicamendId() != null) {
+            Medicament medicament = referentielService.findById(traitementMedicalItem.getMedicamendId());
+            traitementMedicalItemDs.setLibelleMedicament(medicament.getLibelle());
+        }
         return traitementMedicalItemDs;
     }
 

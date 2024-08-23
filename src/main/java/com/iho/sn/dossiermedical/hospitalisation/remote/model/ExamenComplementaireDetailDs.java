@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -12,8 +13,6 @@ import java.util.Date;
 public class ExamenComplementaireDetailDs {
 
     private Long id;
-
-    private Long circuitPatientId;
 
     private Long createdBy;
 
@@ -33,7 +32,7 @@ public class ExamenComplementaireDetailDs {
 
     private String anatomopathologieFileName;
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     private String nomCompletAgent;
 }

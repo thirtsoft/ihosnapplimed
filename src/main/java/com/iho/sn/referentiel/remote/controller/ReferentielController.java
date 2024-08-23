@@ -9,6 +9,7 @@ import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.remote.controller.api.ReferentielApi;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
 import com.iho.sn.referentiel.remote.model.ChambreDs;
@@ -19,6 +20,7 @@ import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
 import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import com.iho.sn.referentiel.service.ReferentielService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -201,6 +203,13 @@ public class ReferentielController implements ReferentielApi {
     }
 
     @Override
+    public ResponseEntity<List<LitDetailDs>> findAllLitByChambre(Long chambreId) {
+        return new ResponseEntity<>(referentielAssembler.assembleEntitiesFromListLit(
+                referentielService.findAllByChambre(chambreId)
+        ), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseMassageDs creerGroupeSanguin(GroupeSanguinDs groupeSanguinDs) {
         GroupeSanguin groupeSanguin = referentielAssembler.assembleGroupeSanguinfromDs(groupeSanguinDs);
         try {
@@ -321,5 +330,46 @@ public class ReferentielController implements ReferentielApi {
     @Override
     public void deleteTrancheAge(Long id) {
         referentielService.deleteTrancheAge(id);
+    }
+
+    @Override
+    public ResponseMassageDs creerTypeDocument(TypeDocumentDs typeDocumentDs) {
+        TypeDocument typeDocument = referentielAssembler.assembleTypeDocumentFromDs(typeDocumentDs);
+        try {
+            typeDocument = referentielService.saveTypeDocument(typeDocument);
+            return new ResponseMassageDs("OK", typeDocument.getId().toString());
+        } catch (Exception e) {
+            return new ResponseMassageDs("FAILED", e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseMassageDs updateTypeDocument(Long id, TypeDocumentDs typeDocumentDs) throws Exception {
+        TypeDocument typeDocument = referentielAssembler.assembleTypeDocumentFromDs(typeDocumentDs);
+        try {
+            typeDocument = referentielService.updateTypeDocument(id, typeDocument);
+            return new ResponseMassageDs("OK", typeDocument.getId().toString());
+        } catch (Exception e) {
+            return new ResponseMassageDs("FAILED", e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<TypeDocumentDs> findById(Long id) {
+        return new ResponseEntity<>(referentielAssembler.assembleTypeDocumentFromEntity(
+                referentielService.findTypeDocumentById(id)
+        ), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<TypeDocumentDs>> findAllTypeDocuments() {
+        return new ResponseEntity<>(referentielAssembler.assembleEntitiesFromListTypeDocument(
+                referentielService.findAllTypeDocuments()
+        ), HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteTypeDocument(Long id) {
+        referentielService.deleteTypeDocument(id);
     }
 }

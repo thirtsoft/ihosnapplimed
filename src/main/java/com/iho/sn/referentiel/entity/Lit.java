@@ -25,7 +25,8 @@ public class Lit extends AbstractAuditableEntity implements Serializable {
     @Column(name = "chambre_uid", nullable = false)
     private Long chambreId;
 
-    private boolean est_disponible;
+    @Column(name = "lit_est_disponible", columnDefinition = "int default 1")
+    private int estDisponible;
 
     private int actif;
 

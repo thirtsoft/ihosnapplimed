@@ -5,10 +5,11 @@ import com.iho.sn.referentiel.entity.CategoryMedicament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public interface CategoryMedicamentRepository extends JpaRepository<CategoryMedicament, Long> {
 
     @Query("SELECT DISTINCT m from CategoryMedicament m where m.id=:id and m.actif=1")

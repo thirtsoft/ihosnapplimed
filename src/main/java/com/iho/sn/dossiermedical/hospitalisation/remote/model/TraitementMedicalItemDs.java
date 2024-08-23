@@ -18,4 +18,5 @@ public class TraitementMedicalItemDs {
     private String administrePar;
     private int estAdministre;
     private LocalDateTime datePrescription;
+    private String libelleMedicament;
 }

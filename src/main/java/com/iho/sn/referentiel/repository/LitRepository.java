@@ -19,4 +19,7 @@ public interface LitRepository extends JpaRepository<Lit, Long> {
 
     @Query("SELECT m FROM Lit m WHERE lower(m.numero) = lower(:numero) AND m.actif = 1")
     Optional<Lit> findByNumero(@Param("numero") String numero);
+
+    @Query("Select DISTINCT li from  Lit li where li.actif=1 and li.chambreId =:id ORDER BY li.numero")
+    List<Lit> findAllByChambre(@Param("id") Long id);
 }

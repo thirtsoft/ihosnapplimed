@@ -34,6 +34,7 @@ public class DiscussionAssembler {
             String nomAgent = utilisateur.getPrenom() + " " + utilisateur.getNom();
             discussionDs.setNomCompletAgent(nomAgent);
         }
+        discussionDs.setCreatedDate(discussion.getCreationDate());
         return discussionDs;
     }
 
