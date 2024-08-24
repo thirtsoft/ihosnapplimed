@@ -3,6 +3,7 @@ package com.iho.sn.dossiermedical.hospitalisation.remote.controller.api;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDetailDs;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDs;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationListDs;
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationSearchDs;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +35,9 @@ public interface HospitalisationApi {
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<HospitalisationListDs>> findAllHospitalisations();
+
+    @PostMapping(value = "/searchBy", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<HospitalisationListDs>> findByCriteria(@RequestBody HospitalisationSearchDs searchDs);
 
     @GetMapping(value = "/patient/{code}")
     ResponseEntity<List<HospitalisationListDs>> getHospitalisationListByPatient(@PathVariable("code") String code);

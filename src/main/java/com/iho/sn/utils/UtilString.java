@@ -23,10 +23,8 @@ public class UtilString {
     }
 
     public static String createNumeroHospitalisation(int poz) {
-        String numero = "";
         DecimalFormat numFormat = new DecimalFormat("00000");
-        numero = "HOST_" + numFormat.format(poz);
-        return numero;
+        return "HOST_" + numFormat.format(poz);
     }
 
     public static String getUrl(HttpServletRequest request) {

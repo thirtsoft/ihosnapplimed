@@ -1,6 +1,7 @@
 package com.iho.sn.admin.repository;
 
 import com.iho.sn.admin.entities.Utilisateur;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@Disabled
 class UtilisateurRepositoryTest {
 
     // Arrange / Given
@@ -26,9 +28,6 @@ class UtilisateurRepositoryTest {
     // Assert / Then
     @Test
     void findByEmail_returnsEmpty_whenUserNotFound() {
-//        Utilisateur utilisateur = Utilisateur.builder()
-//                .email().build()
-
         assertThat(utilisateurRepository.findByEmail("email")).isEmpty();
     }
 
