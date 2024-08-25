@@ -227,6 +227,12 @@ public class HospitalisationServiceImpl implements HospitalisationService {
     }
 
     private synchronized int createNumeroHospitalisation() {
-        return (hospitalisationRepository.maxNumeroHospitalisation() + 1);
+        int nbr = 0;
+        try {
+            nbr = hospitalisationRepository.maxNumeroHospitalisation();
+
+        } catch (Exception e) {
+        }
+        return (nbr + 1);
     }
 }
