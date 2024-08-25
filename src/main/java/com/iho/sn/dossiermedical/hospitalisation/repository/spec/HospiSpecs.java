@@ -26,7 +26,7 @@ public class HospiSpecs implements Specification<Hospitalisation> {
     @Override
     public Predicate toPredicate(Root<Hospitalisation> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
-        if (searchDs.getStatusHospitalisation() != null) {
+        if (!isBlank(searchDs.getStatusHospitalisation())) {
             predicates.add(criteriaBuilder.equal(root.get(Hospitalisation_.statusHospitalisation), forHospitalisation(searchDs.getStatusHospitalisation())));
         }
         if (!isBlank(searchDs.getCode())) {
