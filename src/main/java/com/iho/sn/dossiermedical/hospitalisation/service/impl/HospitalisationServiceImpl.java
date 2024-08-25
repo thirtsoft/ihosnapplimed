@@ -5,7 +5,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.iho.sn.dossiermedical.hospitalisation.entity.ExamenComplementaire;
 import com.iho.sn.dossiermedical.hospitalisation.entity.Hospitalisation;
 import com.iho.sn.dossiermedical.hospitalisation.entity.TraitementMedical;
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationSearchDs;
 import com.iho.sn.dossiermedical.hospitalisation.repository.HospitalisationRepository;
+import com.iho.sn.dossiermedical.hospitalisation.repository.spec.HospiSpecs;
 import com.iho.sn.dossiermedical.hospitalisation.service.HospitalisationService;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static com.iho.sn.enumeration.StatusHospitalisation.EN_COURS;
 import static com.iho.sn.utils.ConstantSigps.TYPE_SEXE_PATIENT;
 
 @Service
@@ -37,12 +40,12 @@ public class HospitalisationServiceImpl implements HospitalisationService {
             hospitalisation.setNumeroHospitalisation(createNumeroHospitalisation());
         }
         Patient patient = patientService.findByCode(hospitalisation.getCode());
-        String sexe = patient.getSexe();
-        if (sexe.equals(TYPE_SEXE_PATIENT)) {
+        if (patient.getSexe().equals(TYPE_SEXE_PATIENT)) {
             hospitalisation.setTypePatient(1);
         } else {
             hospitalisation.setTypePatient(0);
         }
+        hospitalisation.setStatusHospitalisation(EN_COURS);
         Hospitalisation hospitalisationResult = hospitalisationRepository.save(hospitalisation);
         return hospitalisationResult.getId();
     }
@@ -69,6 +72,11 @@ public class HospitalisationServiceImpl implements HospitalisationService {
     @Override
     public List<Hospitalisation> findAllHospitalisations() {
         return hospitalisationRepository.findAllHospitalisations();
+    }
+
+    @Override
+    public List<Hospitalisation> findByCriteria(HospitalisationSearchDs searchCriteria) {
+        return hospitalisationRepository.findAll(new HospiSpecs(searchCriteria));
     }
 
     @Override

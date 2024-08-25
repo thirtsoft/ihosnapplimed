@@ -2,6 +2,7 @@ package com.iho.sn.dossiermedical.hospitalisation.service;
 
 
 import com.iho.sn.dossiermedical.hospitalisation.entity.Hospitalisation;
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationSearchDs;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface HospitalisationService {
     Hospitalisation findById(Long id);
 
     List<Hospitalisation> findAllHospitalisations();
+
+    List<Hospitalisation> findByCriteria(HospitalisationSearchDs searchCriteria);
 
     List<Hospitalisation> findAllByPatient(String code);
 

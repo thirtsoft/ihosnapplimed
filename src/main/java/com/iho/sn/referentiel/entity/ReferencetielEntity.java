@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Setter
 @RequiredArgsConstructor
 @ToString
+@SuperBuilder
 public class ReferencetielEntity extends AbstractAuditableEntity implements Serializable {
 
     @Column(unique = true)

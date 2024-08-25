@@ -45,8 +45,7 @@ public class HospitalisationAssembler {
         HospitalisationListDs hospitalisationListDs = new HospitalisationListDs();
         if (hospitalisation.getId() != null)
             hospitalisationListDs.setId(hospitalisation.getId());
-        hospitalisationListDs.setNumeroHospitalisation(createNumeroHospitalisation(hospitalisation.getNumeroHospitalisation())
-        );
+        hospitalisationListDs.setNumeroHospitalisation(createNumeroHospitalisation(hospitalisation.getNumeroHospitalisation()));
         if (hospitalisation.getCode() != null) {
             Patient patient = patientService.findByCode(hospitalisation.getCode());
             String nomPatient = patient.getPrenom() + ' ' + patient.getNom();
@@ -147,9 +146,7 @@ public class HospitalisationAssembler {
             hospitalisationDetailDs.setSyntheseDs(syntheseAssembler.assembleEntityToDs(hospitalisation.getSynthese()));
         if (hospitalisation.getDiscussion() != null)
             hospitalisationDetailDs.setDiscussionDs(discussionAssembler.assembleEntityToDs(hospitalisation.getDiscussion()));
-        hospitalisationDetailDs.setNumeroHospitalisation(
-                createNumeroHospitalisation(hospitalisation.getNumeroHospitalisation())
-        );
+        hospitalisationDetailDs.setNumeroHospitalisation(createNumeroHospitalisation(hospitalisation.getNumeroHospitalisation()));
         if (hospitalisation.getCode() != null) {
             Patient patient = patientService.findByCode(hospitalisation.getCode());
             String nomPatient = patient.getPrenom() + ' ' + patient.getNom();
@@ -165,7 +162,8 @@ public class HospitalisationAssembler {
             hospitalisationDetailDs.setUtilisateurDs(utilisateurDs);
             hospitalisationDetailDs.setNomCompletMedecin(utilisateur.getPrenom() + ' ' + utilisateur.getNom());
         }
-        hospitalisationDetailDs.setCreatedDate(hospitalisation.getCreationDate());
+        hospitalisationDetailDs.setStatus(hospitalisation.getStatusHospitalisation().getLabel());
+
         return hospitalisationDetailDs;
     }
 

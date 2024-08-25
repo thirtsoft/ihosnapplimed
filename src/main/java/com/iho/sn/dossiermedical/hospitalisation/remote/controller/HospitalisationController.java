@@ -6,6 +6,7 @@ import com.iho.sn.dossiermedical.hospitalisation.remote.controller.api.Hospitali
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDetailDs;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationDs;
 import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationListDs;
+import com.iho.sn.dossiermedical.hospitalisation.remote.model.HospitalisationSearchDs;
 import com.iho.sn.dossiermedical.hospitalisation.service.HospitalisationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,12 @@ public class HospitalisationController implements HospitalisationApi {
     }
 
     @Override
+    public ResponseEntity<List<HospitalisationListDs>> findByCriteria(HospitalisationSearchDs searchDs) {
+        return new ResponseEntity<>(hospitalisationAssembler
+                .assembleEntitiesFrom(hospitalisationService.findByCriteria(searchDs)), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<HospitalisationListDs>> getHospitalisationListByPatient(String code) {
         return new ResponseEntity<>(hospitalisationAssembler
                 .assembleEntitiesFrom(hospitalisationService.findAllByPatient(code)), HttpStatus.OK);
@@ -54,10 +61,8 @@ public class HospitalisationController implements HospitalisationApi {
 
     @Override
     public ResponseEntity<List<HospitalisationDetailDs>> getHospitalisationsDetailsByPatient(String code) {
-        return new ResponseEntity<>(hospitalisationAssembler.assembleHospitalisationsDetailsFromEntity(
-                hospitalisationService.findAllByPatient((code)
-                )
-        ), HttpStatus.OK);
+        return new ResponseEntity<>(hospitalisationAssembler
+                .assembleHospitalisationsDetailsFromEntity(hospitalisationService.findAllByPatient((code))), HttpStatus.OK);
 
     }
 

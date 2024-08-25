@@ -50,4 +50,5 @@ public class HospitalisationDetailDs {
     private int estTransfer;
 
     private Date createDate;
+    private String status;
 }
