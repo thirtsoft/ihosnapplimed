@@ -10,6 +10,7 @@ import com.iho.sn.admin.repository.UtilisateurRepository;
 import com.iho.sn.admin.service.UtilisateurService;
 import com.iho.sn.exception.AlreadyExistsException;
 import com.iho.sn.exception.EntityNotFoundException;
+import com.iho.sn.message.Message;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Long saveUtilisateur(Utilisateur utilisateur, String url) {
+        if (utilisateur == null)
+            throw new AlreadyExistsException(Message.NULL_OBJECT);
         Optional<Utilisateur> byCode = utilisateurRepository.findUtilisateurByCodeUtilisateur(utilisateur.getCodeUtilisateur());
         if (utilisateur.getId() == null && byCode.isPresent()
                 || (utilisateur.getId() != null && byCode.isPresent() && !byCode.get().getId().equals(utilisateur.getId()))) {
@@ -60,6 +63,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw new AlreadyExistsException(format("Le numéro de téléphone %s est déjà associé à un compte utilisateur .", telephone));
         }
         utilisateur.setMatricule(genererMatricule());
+        String defaultPassword = generateCommonsLang3Password();
+        utilisateur.setMotdepasse(passwordEncoder.encode(defaultPassword));
+        utilisateur.setEst_valide(true);
         var savedUser = utilisateurRepository.saveAndFlush(utilisateur);
         publisher.publishEvent(new RegistrationCompleteEvent(savedUser, url));
         return savedUser.getId();

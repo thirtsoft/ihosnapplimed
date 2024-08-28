@@ -1,6 +1,7 @@
 package com.iho.sn.admin.assembler;
 
 import com.iho.sn.admin.entities.Utilisateur;
+import com.iho.sn.admin.remote.model.ListeUtilisateurDs;
 import com.iho.sn.admin.remote.model.UtilisateurDs;
 import com.iho.sn.admin.remote.model.UtilisateurProfilDs;
 import com.iho.sn.admin.service.ProfilService;
@@ -16,6 +17,24 @@ public class UtilisateurAssembler {
 
     private final ProfilService profilService;
     private final UtilisateurService utilisateurService;
+    private final ProfilAssembler profilAssembler;
+
+    public List<ListeUtilisateurDs> assembleListeUtilisateurDsFrom(List<Utilisateur> utilisateurs) {
+        return utilisateurs.stream().map(this::assembleListeUtilisateurDsFromEntity).toList();
+    }
+
+    public ListeUtilisateurDs assembleListeUtilisateurDsFromEntity(Utilisateur utilisateur) {
+        ListeUtilisateurDs listeUtilisateurDs = new ListeUtilisateurDs();
+        if (utilisateur.getId() != null) {
+            listeUtilisateurDs.setId(utilisateur.getId());
+        }
+        listeUtilisateurDs.setNom(utilisateur.getNom());
+        listeUtilisateurDs.setPrenom(utilisateur.getPrenom());
+        listeUtilisateurDs.setEmail(utilisateur.getEmail());
+        listeUtilisateurDs.setTelephone(utilisateur.getTelephone());
+        listeUtilisateurDs.setActif(utilisateur.isActif());
+        return listeUtilisateurDs;
+    }
 
     public List<UtilisateurDs> assembleEntitiesFrom(List<Utilisateur> utilisateurs) {
         return utilisateurs.stream().map(this::assembleUtilisateurDsFromEntity).toList();
@@ -32,12 +51,13 @@ public class UtilisateurAssembler {
         utilisateur.setEmail(utilisateurDs.getEmail());
         utilisateur.setMotdepasse(utilisateurDs.getMotDePasse());
         utilisateur.setTelephone(utilisateurDs.getTelephone());
-        utilisateur.setProfil(profilService.findByProfilCode(utilisateurDs.getProfileCode()));
+    //    utilisateur.setProfil(profilService.findByProfilCode(utilisateurDs.getProfileCode()));
         utilisateur.setFonction(utilisateurDs.getFonction());
         utilisateur.setTypeUtilisateur(utilisateurDs.getTypeUtilisateur());
         utilisateur.setAdresse(utilisateurDs.getAdresse());
         utilisateur.setSexe(utilisateurDs.getSexe());
         utilisateur.setCivilite(utilisateurDs.getCivilite());
+        utilisateur.setProfil(profilService.findProfilById(utilisateurDs.getProfilDs().getId()));
         return utilisateur;
     }
 
@@ -61,7 +81,8 @@ public class UtilisateurAssembler {
         UtilisateurDs utilisateurDs = new UtilisateurDs();
         if (utilisateur.getId() != null) utilisateurDs.setId(utilisateur.getId());
         utilisateurDs.setCodeUtilisateur(utilisateur.getCodeUtilisateur());
-        utilisateurDs.setProfileCode(utilisateur.getProfil().getLibelle());
+    //    utilisateurDs.setProfileCode(utilisateur.getProfil().getLibelle());
+        utilisateurDs.setProfilDs(profilAssembler.assembleEntityToDs(utilisateur.getProfil()));
         utilisateurDs.setPrenom(utilisateur.getPrenom());
         utilisateurDs.setNom(utilisateur.getNom());
         utilisateurDs.setEmail(utilisateur.getEmail());

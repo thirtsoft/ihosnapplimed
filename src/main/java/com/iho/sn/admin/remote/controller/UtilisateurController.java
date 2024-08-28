@@ -5,6 +5,7 @@ import com.iho.sn.admin.entities.Utilisateur;
 import com.iho.sn.admin.remote.controller.api.UtilisateurApi;
 import com.iho.sn.admin.remote.model.ActivationRequest;
 import com.iho.sn.admin.remote.model.ChangerMotDePasseRequest;
+import com.iho.sn.admin.remote.model.ListeUtilisateurDs;
 import com.iho.sn.admin.remote.model.ResponseMassageDs;
 import com.iho.sn.admin.remote.model.UtilisateurDs;
 import com.iho.sn.admin.remote.model.UtilisateurProfilDs;
@@ -55,9 +56,9 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public ResponseEntity<List<UtilisateurDs>> findAllUtilisateurs() {
+    public ResponseEntity<List<ListeUtilisateurDs>> findAllUtilisateurs() {
         return new ResponseEntity<>(utilisateurAssembler
-                .assembleEntitiesFrom(utilisateurService.findAllUtilisateurs()), OK);
+                .assembleListeUtilisateurDsFrom(utilisateurService.findAllUtilisateurs()), OK);
     }
 
     @Override
