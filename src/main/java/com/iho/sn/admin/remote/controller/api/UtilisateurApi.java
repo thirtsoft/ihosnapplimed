@@ -1,7 +1,9 @@
 package com.iho.sn.admin.remote.controller.api;
 
+import com.iho.sn.admin.remote.model.ActivationDs;
 import com.iho.sn.admin.remote.model.ActivationRequest;
 import com.iho.sn.admin.remote.model.ChangerMotDePasseRequest;
+import com.iho.sn.admin.remote.model.ListeUtilisateurDs;
 import com.iho.sn.admin.remote.model.ResponseMassageDs;
 import com.iho.sn.admin.remote.model.UtilisateurDs;
 import com.iho.sn.admin.remote.model.UtilisateurProfilDs;
@@ -26,14 +28,17 @@ public interface UtilisateurApi {
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseMassageDs creerUtilisateur(@RequestBody @Valid UtilisateurDs utilisateurDs, HttpServletRequest request);
 
-    @PutMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/saveagent", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseMassageDs saveUtilisateur(@RequestBody @Valid UtilisateurDs utilisateurDs);
+
+    @PutMapping(value = "/edit", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDs> updateUtilisateur(@RequestBody UtilisateurDs utilisateurDs);
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDs> findUtilisateurById(@PathVariable Long id);
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<UtilisateurDs>> findAllUtilisateurs();
+    ResponseEntity<List<ListeUtilisateurDs>> findAllUtilisateurs();
 
     @DeleteMapping(value = "/delete/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> deleteUtilisateur(@PathVariable String email);
@@ -61,4 +66,8 @@ public interface UtilisateurApi {
 
     @PostMapping(value = "/createPassword", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> activationUser(@RequestBody @Valid ActivationRequest request);
+
+
+    @GetMapping(value = "/activation/{code}")
+    ResponseEntity<ActivationDs> findForActivation(@PathVariable String code);
 }

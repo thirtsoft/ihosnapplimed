@@ -19,7 +19,7 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepositry patientRepositry;
 
     @Override
-    public Patient savePatient(Patient patient) throws Exception {
+    public Patient savePatient(Patient patient) {
         if (patient == null)
             throw new PatientException(MessageException.NULL_OBJECT);
         String code = patient.getCode();

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -85,6 +86,12 @@ public interface ReferentielApi {
 
     @PutMapping(value = "/lit/edit/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseMassageDs updateLit(@PathVariable Long id, @RequestBody LitDs litDs);
+
+    @PutMapping(value = "/lit/occuper/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseMassageDs changerEtatLitAOccupe(@PathVariable Long id, @RequestParam int etat);
+
+    @PutMapping(value = "/lit/enreparation/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseMassageDs amenerLitEnreparation(@PathVariable Long id, @RequestParam int etat);
 
     @GetMapping(value = "/lit/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<LitDetailDs> findLitById(@PathVariable Long id);

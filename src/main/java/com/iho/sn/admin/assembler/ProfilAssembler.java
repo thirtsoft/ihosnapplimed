@@ -31,6 +31,8 @@ public class ProfilAssembler {
 
     public Profil assembleProfilFromDs(ProfilDs profilDs) {
         Profil profil = new Profil();
+        if (profilDs == null)
+            return null;
         profil.setId(profilDs.getId());
         profil.setCode(profilDs.getCode());
         profil.setLibelle(profilDs.getLibelle());

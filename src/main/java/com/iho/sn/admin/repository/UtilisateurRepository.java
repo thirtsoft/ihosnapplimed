@@ -61,4 +61,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     @Query(value = "SELECT DISTINCT u FROM Utilisateur u WHERE u.telephone=:telephone and u.est_valide=1")
     Optional<Utilisateur> findUtilisateurByTelephone(@Param("telephone") String telephone);
+
+    @Query(value = "SELECT DISTINCT u FROM Utilisateur u WHERE u.activation=:code")
+    Utilisateur findUtilisateurByActivation(@Param("code") String code);
 }

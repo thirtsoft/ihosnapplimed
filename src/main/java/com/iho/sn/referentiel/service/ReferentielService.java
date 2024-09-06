@@ -8,15 +8,16 @@ import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
 import com.iho.sn.referentiel.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
+import com.iho.sn.referentiel.exception.ReferentielException;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ReferentielService {
 
-    Long saveCategoryMedicament(CategoryMedicament medicament) throws Exception;
+    Long saveCategoryMedicament(CategoryMedicament medicament) throws ReferentielException;
 
-    Long updateCategoryMedicament(Long id, CategoryMedicament medicament) throws Exception;
+    Long updateCategoryMedicament(Long id, CategoryMedicament medicament) throws ReferentielException;
 
     CategoryMedicament findCategoryMedicamentById(Long id);
 
@@ -26,9 +27,9 @@ public interface ReferentielService {
 
     void deleteCategoryMedicament(Long id);
 
-    Long saveMedicament(Medicament medicament) throws Exception;
+    Long saveMedicament(Medicament medicament) throws ReferentielException;
 
-    Long updateMedicament(Long id, Medicament medicament) throws Exception;
+    Long updateMedicament(Long id, Medicament medicament) throws ReferentielException;
 
     Medicament findById(Long id);
 
@@ -38,9 +39,9 @@ public interface ReferentielService {
 
     void deleteMedicament(Long id);
 
-    Long saveChambre(Chambre chambre) throws Exception;
+    Long saveChambre(Chambre chambre) throws ReferentielException;
 
-    Long updateChambre(Long id, Chambre chambre) throws Exception;
+    Long updateChambre(Long id, Chambre chambre) throws ReferentielException;
 
     Chambre findChambreById(Long id);
 
@@ -50,9 +51,13 @@ public interface ReferentielService {
 
     void deleteChambre(Long id);
 
-    Long saveLit(Lit lit) throws Exception;
+    Long saveLit(Lit lit) throws ReferentielException;
 
-    Long updateLit(Long id, Lit lit) throws Exception;
+    Long updateLit(Long id, Lit lit) throws ReferentielException;
+
+    void changerEtatLitAOccupe(Long litId, int etat);
+
+    void amenerLitEnreparation(Long litId, int etat);
 
     Lit findLitById(Long id);
 
@@ -64,9 +69,9 @@ public interface ReferentielService {
 
     List<Lit> findAllByChambre(Long chambreId);
 
-    Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws Exception;
+    Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws ReferentielException;
 
-    Long updateServicePartenaire(Long id, ServicePartenaire servicePartenaire) throws Exception;
+    Long updateServicePartenaire(Long id, ServicePartenaire servicePartenaire) throws ReferentielException;
 
     ServicePartenaire findServicePartenaireById(Long id);
 
@@ -76,9 +81,9 @@ public interface ReferentielService {
 
     void deleteServicePartenaire(Long id);
 
-    Long saveGroupeSanguin(GroupeSanguin groupeSanguin) throws Exception;
+    Long saveGroupeSanguin(GroupeSanguin groupeSanguin) throws ReferentielException;
 
-    Long updateGroupeSanguin(Long id, GroupeSanguin groupeSanguin) throws Exception;
+    Long updateGroupeSanguin(Long id, GroupeSanguin groupeSanguin) throws ReferentielException;
 
     GroupeSanguin findGroupeSanguinById(Long id);
 
@@ -88,9 +93,9 @@ public interface ReferentielService {
 
     void deleteGroupeSanguin(Long id);
 
-    Long saveTrancheAge(TrancheAge trancheAge) throws Exception;
+    Long saveTrancheAge(TrancheAge trancheAge) throws ReferentielException;
 
-    Long updateTrancheAge(Long id, TrancheAge trancheAge) throws Exception;
+    Long updateTrancheAge(Long id, TrancheAge trancheAge) throws ReferentielException;
 
     TrancheAge findTrancheAgeById(Long id);
 
@@ -102,7 +107,7 @@ public interface ReferentielService {
 
     TypeDocument saveTypeDocument(TypeDocument typeDocument);
 
-    TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws Exception;
+    TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws ReferentielException;
 
     TypeDocument findTypeDocumentById(Long id);
 

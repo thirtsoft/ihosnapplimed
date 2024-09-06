@@ -22,6 +22,7 @@ import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
 import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
 import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import com.iho.sn.referentiel.service.ReferentielService;
+import com.iho.sn.utils.MessageException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -178,6 +179,26 @@ public class ReferentielController implements ReferentielApi {
         try {
             Long updatedLit = referentielService.updateLit(id, lit);
             return new ResponseMassageDs("OK", updatedLit.toString());
+        } catch (Exception e) {
+            return new ResponseMassageDs("FAILED", e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseMassageDs changerEtatLitAOccupe(Long id, int etat) {
+        try {
+            referentielService.changerEtatLitAOccupe(id, etat);
+            return new ResponseMassageDs("OK", "lit occupé");
+        } catch (Exception e) {
+            return new ResponseMassageDs("FAILED", e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseMassageDs amenerLitEnreparation(Long id, int etat) {
+        try {
+            referentielService.amenerLitEnreparation(id, etat);
+            return new ResponseMassageDs("OK", "lit en répation");
         } catch (Exception e) {
             return new ResponseMassageDs("FAILED", e.getMessage());
         }

@@ -3,8 +3,10 @@ package com.iho.sn.admin.remote.controller;
 import com.iho.sn.admin.assembler.UtilisateurAssembler;
 import com.iho.sn.admin.entities.Utilisateur;
 import com.iho.sn.admin.remote.controller.api.UtilisateurApi;
+import com.iho.sn.admin.remote.model.ActivationDs;
 import com.iho.sn.admin.remote.model.ActivationRequest;
 import com.iho.sn.admin.remote.model.ChangerMotDePasseRequest;
+import com.iho.sn.admin.remote.model.ListeUtilisateurDs;
 import com.iho.sn.admin.remote.model.ResponseMassageDs;
 import com.iho.sn.admin.remote.model.UtilisateurDs;
 import com.iho.sn.admin.remote.model.UtilisateurProfilDs;
@@ -42,6 +44,17 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
+    public ResponseMassageDs saveUtilisateur(UtilisateurDs utilisateurDs) {
+        Utilisateur utilisateur = utilisateurAssembler.assembleUtilisateurFromDs(utilisateurDs);
+        try {
+            utilisateurService.creerUtilisateur(utilisateur);
+            return new ResponseMassageDs("OK", "L'utilisateur a été crée avec succès");
+        } catch (Exception e) {
+            return new ResponseMassageDs("FAILED", e.getMessage());
+        }
+    }
+
+    @Override
     public ResponseEntity<UtilisateurDs> updateUtilisateur(UtilisateurDs utilisateurDs) {
         Utilisateur utilisateur = utilisateurAssembler.assembleUtilisateurForUpdateDs(utilisateurDs);
         return new ResponseEntity<>(utilisateurAssembler
@@ -55,9 +68,9 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public ResponseEntity<List<UtilisateurDs>> findAllUtilisateurs() {
+    public ResponseEntity<List<ListeUtilisateurDs>> findAllUtilisateurs() {
         return new ResponseEntity<>(utilisateurAssembler
-                .assembleEntitiesFrom(utilisateurService.findAllUtilisateurs()), OK);
+                .assembleListeUtilisateurDsFrom(utilisateurService.findAllUtilisateurs()), OK);
     }
 
     @Override
@@ -111,6 +124,11 @@ public class UtilisateurController implements UtilisateurApi {
     public ResponseEntity<String> activationUser(ActivationRequest activationRequest) {
         utilisateurService.createdPassword(activationRequest.getEmail(), activationRequest.getPassword());
         return new ResponseEntity<>("Password Created", CREATED);
+    }
+
+    @Override
+    public ResponseEntity<ActivationDs> findForActivation(String code) {
+        return utilisateurService.findUserForActivation(code);
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.iho.sn.referentiel.repository.ServicePartenaireRepository;
 import com.iho.sn.referentiel.repository.TrancheAgeRepository;
 import com.iho.sn.referentiel.repository.TypeDocumentRepository;
 import com.iho.sn.referentiel.service.ReferentielService;
+import com.iho.sn.utils.ConstantSigps;
 import com.iho.sn.utils.MessageException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     private final TypeDocumentRepository typeDocumentRepository;
 
     @Override
-    public Long saveCategoryMedicament(CategoryMedicament medicament) throws Exception {
+    public Long saveCategoryMedicament(CategoryMedicament medicament) throws ReferentielException {
         if (medicament == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = medicament.getCode();
@@ -62,7 +63,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateCategoryMedicament(Long id, CategoryMedicament medicament) throws Exception {
+    public Long updateCategoryMedicament(Long id, CategoryMedicament medicament) throws ReferentielException {
         if (!categoryMedicamentRepository.existsById(id)) {
             throw new ReferentielException("La catégorie de médicament avec l'id " + id + "n'est pas trouvé");
         }
@@ -106,7 +107,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       Médicament   *********************/
     @Override
-    public Long saveMedicament(Medicament medicament) throws Exception {
+    public Long saveMedicament(Medicament medicament) throws ReferentielException {
         if (medicament == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = medicament.getCode();
@@ -121,7 +122,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateMedicament(Long id, Medicament medicament) throws Exception {
+    public Long updateMedicament(Long id, Medicament medicament) throws ReferentielException {
         if (!medicamentRepository.existsById(id)) {
             throw new ReferentielException("Le Médicament avec l'id " + id + "n'est pas trouvé");
         }
@@ -166,7 +167,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       Chambre   *********************/
     @Override
-    public Long saveChambre(Chambre chambre) throws Exception {
+    public Long saveChambre(Chambre chambre) throws ReferentielException {
         if (chambre == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = chambre.getCode();
@@ -181,7 +182,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateChambre(Long id, Chambre chambre) throws Exception {
+    public Long updateChambre(Long id, Chambre chambre) throws ReferentielException {
         if (!chambreRepository.existsById(id)) {
             throw new ReferentielException("La chambre avec l'id " + id + "n'est pas trouvé");
         }
@@ -224,7 +225,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       Lit   *********************/
     @Override
-    public Long saveLit(Lit lit) throws Exception {
+    public Long saveLit(Lit lit) throws ReferentielException {
         if (lit == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = lit.getNumero();
@@ -234,12 +235,13 @@ public class ReferentielServiceImpl implements ReferentielService {
             throw new ReferentielException(String.format("Le numéro de lit %s est déjà associé à un autre lit  .", code));
         }
         lit.setActif(true);
+        lit.setEstDisponible(ConstantSigps.DISPONIBLE);
         Lit savedLit = litRepository.save(lit);
         return savedLit.getId();
     }
 
     @Override
-    public Long updateLit(Long id, Lit lit) throws Exception {
+    public Long updateLit(Long id, Lit lit) throws ReferentielException {
         if (!litRepository.existsById(id)) {
             throw new ReferentielException("Le lit avecc l'id " + id + "n'est pas trouvé");
         }
@@ -249,6 +251,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         litResult.setNumero(lit.getNumero());
         litResult.setChambreId(lit.getChambreId());
+        litResult.setEstDisponible(lit.getEstDisponible());
         Optional<Lit> byCode = litRepository.findByNumero(litResult.getNumero());
         if (litResult.getId() == null && byCode.isPresent()
                 || (litResult.getId() != null && byCode.isPresent() && !byCode.get().getId().equals(litResult.getId()))) {
@@ -256,6 +259,26 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Lit updatedLit = litRepository.save(litResult);
         return updatedLit.getId();
+    }
+
+    @Override
+    public void changerEtatLitAOccupe(Long litId, int etat) {
+        if (!litRepository.existsById(litId)) {
+            throw new ReferentielException("Le lit avecc l'id " + litId + "n'est pas trouvé");
+        }
+        Lit litResult = litRepository.findLitById(litId);
+        litResult.setEstDisponible(ConstantSigps.OCCUPE);
+        litRepository.save(litResult);
+    }
+
+    @Override
+    public void amenerLitEnreparation(Long litId, int etat) {
+        if (!litRepository.existsById(litId)) {
+            throw new ReferentielException("Le lit avecc l'id " + litId + "n'est pas trouvé");
+        }
+        Lit litResult = litRepository.findLitById(litId);
+        litResult.setEstDisponible(ConstantSigps.EN_REPARATION);
+        litRepository.save(litResult);
     }
 
     @Override
@@ -290,7 +313,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       ServicePartenaire   *********************/
     @Override
-    public Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws Exception {
+    public Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws ReferentielException {
         if (servicePartenaire == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = servicePartenaire.getCode();
@@ -305,7 +328,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateServicePartenaire(Long id, ServicePartenaire servicePartenaire) throws Exception {
+    public Long updateServicePartenaire(Long id, ServicePartenaire servicePartenaire) throws ReferentielException {
         if (!servicePartenaireRepository.existsById(id)) {
             throw new ReferentielException("Le ServicePartenaire avecc l'id " + id + "n'est pas trouvé");
         }
@@ -349,7 +372,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       Groupe sanguin   *********************/
     @Override
-    public Long saveGroupeSanguin(GroupeSanguin groupeSanguin) throws Exception {
+    public Long saveGroupeSanguin(GroupeSanguin groupeSanguin) throws ReferentielException {
         if (groupeSanguin == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = groupeSanguin.getCode();
@@ -364,7 +387,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateGroupeSanguin(Long id, GroupeSanguin groupeSanguin) throws Exception {
+    public Long updateGroupeSanguin(Long id, GroupeSanguin groupeSanguin) throws ReferentielException {
         if (!groupeSanguinRepository.existsById(id)) {
             throw new ReferentielException("Le Groupe sanguin avecc l'id " + id + "n'est pas trouvé");
         }
@@ -407,7 +430,7 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     /************       Tranche d'age   *********************/
     @Override
-    public Long saveTrancheAge(TrancheAge trancheAge) throws Exception {
+    public Long saveTrancheAge(TrancheAge trancheAge) throws ReferentielException {
         if (trancheAge == null)
             throw new ReferentielException(MessageException.NULL_OBJECT);
         String code = trancheAge.getCode();
@@ -422,7 +445,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public Long updateTrancheAge(Long id, TrancheAge trancheAge) throws Exception {
+    public Long updateTrancheAge(Long id, TrancheAge trancheAge) throws ReferentielException {
         if (!trancheAgeRepository.existsById(id)) {
             throw new ReferentielException("La Tranche d'Age avecc l'id " + id + "n'est pas trouvé");
         }
@@ -483,7 +506,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     }
 
     @Override
-    public TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws Exception {
+    public TypeDocument updateTypeDocument(Long id, TypeDocument typeDocument) throws ReferentielException {
         TypeDocument foundTypeDocument = findTypeDocumentById(id);
         if (foundTypeDocument == null)
             throw new ReferentielException("L'object à modifier n'est pas trouvé pas");

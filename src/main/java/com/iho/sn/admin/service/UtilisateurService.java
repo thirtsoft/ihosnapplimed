@@ -2,12 +2,16 @@ package com.iho.sn.admin.service;
 
 
 import com.iho.sn.admin.entities.Utilisateur;
+import com.iho.sn.admin.remote.model.ActivationDs;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface UtilisateurService {
 
     Long saveUtilisateur(Utilisateur utilisateur, String url);
+
+    void creerUtilisateur(Utilisateur utilisateur) throws Exception;
 
     Utilisateur findUtilisateurById(Long utilisateurId);
 
@@ -38,4 +42,7 @@ public interface UtilisateurService {
     void activatedAccount(String matricule);
 
     void deactivatedAccount(String matricule);
+
+    ResponseEntity<ActivationDs> findUserForActivation(String code);
+
 }

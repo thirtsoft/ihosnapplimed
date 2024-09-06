@@ -57,6 +57,8 @@ public class HospitalisationAssembler {
             hospitalisationListDs.setNomCompletMedecin(nomAgent);
         }
         hospitalisationListDs.setCreateDate(hospitalisation.getCreationDate());
+        hospitalisationListDs.setDateAjout(hospitalisation.getDateEnregistrement());
+        hospitalisationListDs.setStatus(hospitalisation.getStatusHospitalisation().getLabel());
         return hospitalisationListDs;
     }
 
@@ -163,7 +165,7 @@ public class HospitalisationAssembler {
             hospitalisationDetailDs.setNomCompletMedecin(utilisateur.getPrenom() + ' ' + utilisateur.getNom());
         }
         hospitalisationDetailDs.setStatus(hospitalisation.getStatusHospitalisation().getLabel());
-
+        hospitalisationDetailDs.setDateAjout(hospitalisation.getDateEnregistrement());
         return hospitalisationDetailDs;
     }
 

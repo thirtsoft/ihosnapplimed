@@ -1,6 +1,7 @@
 package com.iho.sn.admin.event.listener;
 
 
+import com.iho.sn.admin.entities.ProfileProperties;
 import com.iho.sn.admin.entities.Utilisateur;
 import com.iho.sn.admin.event.RegistrationCompleteEvent;
 import com.iho.sn.admin.service.impl.ValidationService;
@@ -24,6 +25,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
 
     private final JavaMailSender mailSender;
     private final ValidationService validationService;
+    private final ProfileProperties profileProperties;
 
     @Value("${spring.mail.username}")
     private String configEmail;
