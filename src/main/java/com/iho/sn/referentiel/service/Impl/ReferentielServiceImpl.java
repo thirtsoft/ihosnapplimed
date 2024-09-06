@@ -6,7 +6,7 @@ import com.iho.sn.referentiel.entity.GroupeSanguin;
 import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.exception.ReferentielException;
 import com.iho.sn.referentiel.repository.CategoryMedicamentRepository;
@@ -15,7 +15,7 @@ import com.iho.sn.referentiel.repository.GroupeSanguinRepository;
 import com.iho.sn.referentiel.repository.LitRepository;
 import com.iho.sn.referentiel.repository.MedicamentRepository;
 import com.iho.sn.referentiel.repository.ServicePartenaireRepository;
-import com.iho.sn.referentiel.repository.TrancheAgeRepository;
+import com.iho.sn.dossiermedical.patient.repository.TrancheAgeRepository;
 import com.iho.sn.referentiel.repository.TypeDocumentRepository;
 import com.iho.sn.referentiel.service.ReferentielService;
 import com.iho.sn.utils.ConstantSigps;
@@ -23,7 +23,6 @@ import com.iho.sn.utils.MessageException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -426,64 +425,6 @@ public class ReferentielServiceImpl implements ReferentielService {
         GroupeSanguin findGroupeSanguin = findGroupeSanguinById(id);
         findGroupeSanguin.setActif(false);
         groupeSanguinRepository.save(findGroupeSanguin);
-    }
-
-    /************       Tranche d'age   *********************/
-    @Override
-    public Long saveTrancheAge(TrancheAge trancheAge) throws ReferentielException {
-        if (trancheAge == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
-        String code = trancheAge.getCode();
-        Optional<TrancheAge> byCode = trancheAgeRepository.findByCode(code);
-        if (trancheAge.getId() == null && byCode.isPresent()
-                || (trancheAge.getId() != null && byCode.isPresent() && !byCode.get().getId().equals(trancheAge.getId()))) {
-            throw new ReferentielException(String.format("Le code %s est déjà associé à une autre tranche d'age  .", code));
-        }
-        trancheAge.setActif(true);
-        TrancheAge savedTrancheAge = trancheAgeRepository.save(trancheAge);
-        return savedTrancheAge.getId();
-    }
-
-    @Override
-    public Long updateTrancheAge(Long id, TrancheAge trancheAge) throws ReferentielException {
-        if (!trancheAgeRepository.existsById(id)) {
-            throw new ReferentielException("La Tranche d'Age avecc l'id " + id + "n'est pas trouvé");
-        }
-        TrancheAge trancheAgeResult = trancheAgeRepository.findTrancheAgeById(id);
-        if (trancheAgeResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
-        }
-        trancheAgeResult.setCode(trancheAge.getCode());
-        trancheAgeResult.setLibelle(trancheAge.getLibelle());
-        Optional<TrancheAge> byCode = trancheAgeRepository.findByCode(trancheAgeResult.getCode());
-        if (trancheAgeResult.getId() == null && byCode.isPresent()
-                || (trancheAgeResult.getId() != null && byCode.isPresent() && !byCode.get().getId().equals(trancheAgeResult.getId()))) {
-            throw new ReferentielException(String.format("Le code %s est déjà associé à une autre tranche d'age .", trancheAgeResult.getCode()));
-        }
-        TrancheAge updatedTrancheAge = trancheAgeRepository.save(trancheAgeResult);
-        return updatedTrancheAge.getId();
-    }
-
-    @Override
-    public TrancheAge findTrancheAgeById(Long id) {
-        return trancheAgeRepository.findById(id).orElseThrow(()-> new ReferentielException("La Tranche d'Age avec l'id " + id + "n'est pas trouvé"));
-    }
-
-    @Override
-    public TrancheAge findTrancheAgeByCode(String code) {
-        return trancheAgeRepository.findByCode(code).orElseThrow(()-> new ReferentielException("La Tranche d'Age avec le code " + code + "n'est pas trouvé"));
-    }
-
-    @Override
-    public List<TrancheAge> findAllTrancheAges() {
-        return trancheAgeRepository.findAll();
-    }
-
-    @Override
-    public void deleteTrancheAge(Long id) {
-        TrancheAge findTrancheAge = findTrancheAgeById(id);
-        findTrancheAge.setActif(false);
-        trancheAgeRepository.save(findTrancheAge);
     }
 
     /***************   TypeDocument   *********************/

@@ -5,12 +5,14 @@ import com.iho.sn.dossiermedical.hospitalisation.service.HospitalisationService;
 import com.iho.sn.dossiermedical.patient.entity.Diagnostic;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
 import com.iho.sn.dossiermedical.patient.entity.PersonneConfiance;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.dossiermedical.patient.remote.model.DiagnosticDs;
 import com.iho.sn.dossiermedical.patient.remote.model.PatientAddDs;
 import com.iho.sn.dossiermedical.patient.remote.model.PatientDetailDs;
 import com.iho.sn.dossiermedical.patient.remote.model.PatientListDs;
 import com.iho.sn.dossiermedical.patient.remote.model.PatientUpdateByMedecinDs;
 import com.iho.sn.dossiermedical.patient.remote.model.PersonneConfianceDs;
+import com.iho.sn.dossiermedical.patient.remote.model.TrancheAgeDs;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -49,6 +51,10 @@ public class PatientAssembler {
         patientAddDs.setEst_accompagne(patient.isEst_accompagne());
         if (patient.getPersonneConfiance() != null)
             patientAddDs.setPersonneConfianceDs(assembleDsFromEntity(patient.getPersonneConfiance()));
+        if (patient.getTrancheAge() != null)
+            patientAddDs.setTrancheAgeDs(assembleTrancheAgeDsFromEntity(patient.getTrancheAge()));
+        patientAddDs.setModeAdmission(patient.getModeAdmission());
+        patientAddDs.setStructureReference(patient.getStructureReference());
         return patientAddDs;
     }
 
@@ -69,6 +75,10 @@ public class PatientAssembler {
         patientAddDs.setEst_accompagne(patient.isEst_accompagne());
         if (patient.getPersonneConfianceDs() != null)
             patientAddDs.setPersonneConfiance(assemblePersonneConfianceFromDs(patient.getPersonneConfianceDs()));
+        if (patient.getTrancheAgeDs() != null)
+            patientAddDs.setTrancheAge(assembleTrancheAgeFromDs(patient.getTrancheAgeDs()));
+        patient.setModeAdmission(patient.getModeAdmission());
+        patientAddDs.setStructureReference(patient.getStructureReference());
         return patientAddDs;
     }
 
@@ -83,6 +93,11 @@ public class PatientAssembler {
         patientMinDs.setIsCircuitGenerated(patient.getIsCircuitGenerated());
         patientMinDs.setDiagnosticDs(assembleDiagnosticToDs(patient.getDiagnostic()));
         patientMinDs.setNombre_passage(patient.getNombre_passage());
+        patientMinDs.setModeAdmission(patient.getModeAdmission());
+        if (patient.getModeAdmission()==1)
+            patientMinDs.setLibelleModeAdmission("venue elle-même");
+        patientMinDs.setLibelleModeAdmission("référée");
+        patientMinDs.setStructureReference(patient.getStructureReference());
         return patientMinDs;
 
     }
@@ -124,6 +139,12 @@ public class PatientAssembler {
             patientDetailDs.setHospitalisationDsList(hospitalisationAssembler
                     .assembleHospitalisationsDetailsFromEntity(
                             hospitalisationService.findAllByPatient(patient.getCode())));
+        if (patient.getTrancheAge() != null)
+            patientDetailDs.setTrancheAgeDs(assembleTrancheAgeDsFromEntity(patient.getTrancheAge()));
+        if (patient.getModeAdmission() == 1)
+            patientDetailDs.setLibelleModeAdmission("venue elle-même");
+        patientDetailDs.setLibelleModeAdmission("référée");
+        patientDetailDs.setStructureReference(patient.getStructureReference());
         return patientDetailDs;
     }
 
@@ -158,6 +179,10 @@ public class PatientAssembler {
         patient.setEst_accompagne(patientDetailDs.isEst_accompagne());
         if (patientDetailDs.getDiagnosticDs() != null)
             patient.setDiagnostic(assembleDiagnosticFromDiagnosticDs(patientDetailDs.getDiagnosticDs()));
+        if (patientDetailDs.getTrancheAgeDs() != null)
+            patient.setTrancheAge(assembleTrancheAgeFromDs(patientDetailDs.getTrancheAgeDs()));
+        patient.setModeAdmission(patientDetailDs.getModeAdmission());
+        patient.setStructureReference(patientDetailDs.getStructureReference());
         return patient;
     }
 
@@ -247,6 +272,28 @@ public class PatientAssembler {
         diagnostic.setDiagnostic_principal(diagnosticDs.getDiagnostic_principal());
         diagnostic.setDiagnostic_associe(diagnosticDs.getDiagnostic_associe());
         return diagnostic;
+    }
+
+    public TrancheAgeDs assembleTrancheAgeDsFromEntity(TrancheAge trancheAge) {
+        if (trancheAge == null)
+            return null;
+        TrancheAgeDs trancheAgeDs = new TrancheAgeDs();
+        if (trancheAge.getId() != null)
+            trancheAgeDs.setId(trancheAge.getId());
+        trancheAgeDs.setCode(trancheAge.getCode());
+        trancheAgeDs.setLibelle(trancheAge.getLibelle());
+        return trancheAgeDs;
+    }
+
+    public TrancheAge assembleTrancheAgeFromDs(TrancheAgeDs trancheAgeDs) {
+        if (trancheAgeDs == null)
+            return null;
+        TrancheAge trancheAge = new TrancheAge();
+        if (trancheAge.getId() != null)
+            trancheAge.setId(trancheAgeDs.getId());
+        trancheAge.setCode(trancheAgeDs.getCode());
+        trancheAge.setLibelle(trancheAgeDs.getLibelle());
+        return trancheAge;
     }
 
 

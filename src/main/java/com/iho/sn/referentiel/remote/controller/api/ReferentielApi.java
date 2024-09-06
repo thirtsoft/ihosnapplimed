@@ -1,7 +1,6 @@
 package com.iho.sn.referentiel.remote.controller.api;
 
 import com.iho.sn.admin.remote.model.ResponseMassageDs;
-import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
 import com.iho.sn.referentiel.remote.model.ChambreDs;
 import com.iho.sn.referentiel.remote.model.GroupeSanguinDs;
@@ -10,7 +9,7 @@ import com.iho.sn.referentiel.remote.model.LitDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
-import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.dossiermedical.patient.remote.model.TrancheAgeDs;
 import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import static com.iho.sn.utils.ApiUrlAccess.APP_ROOT;
 
 @RequestMapping(value = "/referentiel")
 public interface ReferentielApi {
@@ -137,22 +134,6 @@ public interface ReferentielApi {
 
     @DeleteMapping(value = "/servicepartenaire/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteServicePartenaire(@PathVariable Long id);
-
-    /************************ TrancheAge ***************************/
-    @PostMapping(value = "/trancheage/save", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseMassageDs creerTrancheAge(@RequestBody TrancheAgeDs trancheAgeDs);
-
-    @PutMapping(value = "/trancheage/edit/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseMassageDs updateTrancheAge(@PathVariable Long id, @RequestBody TrancheAgeDs trancheAgeDs);
-
-    @GetMapping(value = "/trancheage/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<TrancheAgeDs> findTrancheAgeById(@PathVariable Long id);
-
-    @GetMapping(value = "/trancheage/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<TrancheAgeDs>> findAllTrancheAges();
-
-    @DeleteMapping(value = "/trancheage/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    void deleteTrancheAge(@PathVariable Long id);
 
     /***********************   TypeDocument    *******************/
 

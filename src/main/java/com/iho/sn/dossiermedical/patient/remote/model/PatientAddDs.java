@@ -1,5 +1,6 @@
 package com.iho.sn.dossiermedical.patient.remote.model;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -49,6 +50,12 @@ public class PatientAddDs {
     private Date dateAdmission;
 
     private PersonneConfianceDs personneConfianceDs;
+
+    private TrancheAgeDs trancheAgeDs;
+
+    private int modeAdmission;
+
+    private String structureReference;
 
     private boolean est_accompagne;
 

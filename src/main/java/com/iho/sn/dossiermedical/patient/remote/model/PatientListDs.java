@@ -29,4 +29,12 @@ public class PatientListDs {
     private int nombre_passage;
 
     private int isCircuitGenerated;
+
+    private TrancheAgeDs trancheAgeDs;
+
+    private int modeAdmission;
+
+    private String libelleModeAdmission;
+
+    private String structureReference;
 }

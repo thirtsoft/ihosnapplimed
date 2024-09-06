@@ -51,6 +51,14 @@ public class PatientDetailDs {
 
     private List<HospitalisationDetailDs> hospitalisationDsList;
 
+    private TrancheAgeDs trancheAgeDs;
+
+    private int modeAdmission;
+
+    private String libelleModeAdmission;
+
+    private String structureReference;
+
     private int actif;
 
     public boolean isActif() {

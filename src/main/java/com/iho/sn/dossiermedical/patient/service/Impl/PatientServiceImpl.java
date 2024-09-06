@@ -1,7 +1,9 @@
 package com.iho.sn.dossiermedical.patient.service.Impl;
 
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.dossiermedical.patient.repository.PatientRepositry;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
+import com.iho.sn.dossiermedical.patient.repository.TrancheAgeRepository;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
 import com.iho.sn.dossiermedical.patient.exception.PatientException;
 import com.iho.sn.utils.MessageException;
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepositry patientRepositry;
+    private final TrancheAgeRepository trancheAgeRepository;
 
     @Override
     public Patient savePatient(Patient patient) {
@@ -36,7 +39,29 @@ public class PatientServiceImpl implements PatientService {
         }
         patient.setActif(true);
         patient.setDateAdmission(new Date());
-        return patientRepositry.save(patient);
+        Patient savePatient = patientRepositry.save(patient);
+        if (savePatient.getAge()>=0 && savePatient.getAge()<14) {
+            TrancheAge trancheAge = new TrancheAge();
+            trancheAge.setCode("ENF");
+            trancheAge.setLibelle("Enfant");
+            trancheAgeRepository.save(trancheAge);
+        }else if (savePatient.getAge()>=14 && savePatient.getAge()<18) {
+            TrancheAge trancheAge = new TrancheAge();
+            trancheAge.setCode("ADO");
+            trancheAge.setLibelle("Adolescent");
+            trancheAgeRepository.save(trancheAge);
+        }else if (savePatient.getAge()>=18 && savePatient.getAge()<45) {
+            TrancheAge trancheAge = new TrancheAge();
+            trancheAge.setCode("ADLT");
+            trancheAge.setLibelle("Adulte");
+            trancheAgeRepository.save(trancheAge);
+        } else {
+            TrancheAge trancheAge = new TrancheAge();
+            trancheAge.setCode("PAR");
+            trancheAge.setLibelle("Parent");
+            trancheAgeRepository.save(trancheAge);
+        }
+        return savePatient;
     }
 
     @Override

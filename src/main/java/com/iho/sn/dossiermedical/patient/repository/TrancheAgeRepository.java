@@ -1,7 +1,6 @@
-package com.iho.sn.referentiel.repository;
+package com.iho.sn.dossiermedical.patient.repository;
 
-import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

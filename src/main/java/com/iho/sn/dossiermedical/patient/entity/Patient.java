@@ -60,6 +60,15 @@ public class Patient extends AbstractAuditableEntity implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Diagnostic diagnostic;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    private TrancheAge trancheAge;
+
+    @Column(name = "mode_admission", columnDefinition = "int default 1")
+    private int modeAdmission;
+
+    @Column(name = "structure_reference")
+    private String structureReference;
+
     @Column(name = "nombre_passage", columnDefinition = "int default 0")
     private int nombre_passage;
 

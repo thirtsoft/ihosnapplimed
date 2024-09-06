@@ -6,10 +6,9 @@ import com.iho.sn.referentiel.entity.GroupeSanguin;
 import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.exception.ReferentielException;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -92,18 +91,6 @@ public interface ReferentielService {
     List<GroupeSanguin> findAllGroupeSanguins();
 
     void deleteGroupeSanguin(Long id);
-
-    Long saveTrancheAge(TrancheAge trancheAge) throws ReferentielException;
-
-    Long updateTrancheAge(Long id, TrancheAge trancheAge) throws ReferentielException;
-
-    TrancheAge findTrancheAgeById(Long id);
-
-    TrancheAge findTrancheAgeByCode(String code);
-
-    List<TrancheAge> findAllTrancheAges();
-
-    void deleteTrancheAge(Long id);
 
     TypeDocument saveTypeDocument(TypeDocument typeDocument);
 

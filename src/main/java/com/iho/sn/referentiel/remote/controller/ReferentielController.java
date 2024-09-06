@@ -8,7 +8,7 @@ import com.iho.sn.referentiel.entity.GroupeSanguin;
 import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.remote.controller.api.ReferentielApi;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
@@ -19,10 +19,9 @@ import com.iho.sn.referentiel.remote.model.LitDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
-import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.dossiermedical.patient.remote.model.TrancheAgeDs;
 import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import com.iho.sn.referentiel.service.ReferentielService;
-import com.iho.sn.utils.MessageException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -310,47 +309,6 @@ public class ReferentielController implements ReferentielApi {
     @Override
     public void deleteServicePartenaire(Long id) {
         referentielService.deleteServicePartenaire(id);
-    }
-
-    @Override
-    public ResponseMassageDs creerTrancheAge(TrancheAgeDs trancheAgeDs) {
-        TrancheAge trancheAge = referentielAssembler.assembleTrancheAgefromDs(trancheAgeDs);
-        try {
-            Long id = referentielService.saveTrancheAge(trancheAge);
-            return new ResponseMassageDs("OK", id.toString());
-        } catch (Exception e) {
-            return new ResponseMassageDs("FAILED", e.getMessage());
-        }
-    }
-
-    @Override
-    public ResponseMassageDs updateTrancheAge(Long id, TrancheAgeDs trancheAgeDs) {
-        TrancheAge trancheAge = referentielAssembler.assembleTrancheAgefromDs(trancheAgeDs);
-        try {
-            Long updatedTAge = referentielService.updateTrancheAge(id, trancheAge);
-            return new ResponseMassageDs("OK", updatedTAge.toString());
-        } catch (Exception e) {
-            return new ResponseMassageDs("FAILED", e.getMessage());
-        }
-    }
-
-    @Override
-    public ResponseEntity<TrancheAgeDs> findTrancheAgeById(Long id) {
-        return new ResponseEntity<>(referentielAssembler.assembleTrancheAgeDsfromEntity(
-                referentielService.findTrancheAgeById(id)
-        ), HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<TrancheAgeDs>> findAllTrancheAges() {
-        return new ResponseEntity<>(referentielAssembler.assembleEntitiesFromListTrancheAge(
-                referentielService.findAllTrancheAges()
-        ), HttpStatus.OK);
-    }
-
-    @Override
-    public void deleteTrancheAge(Long id) {
-        referentielService.deleteTrancheAge(id);
     }
 
     @Override

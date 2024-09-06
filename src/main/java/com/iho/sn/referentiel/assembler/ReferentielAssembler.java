@@ -6,7 +6,7 @@ import com.iho.sn.referentiel.entity.GroupeSanguin;
 import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.referentiel.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.remote.model.CategoryMedicamentDs;
 import com.iho.sn.referentiel.remote.model.ChambreDs;
@@ -16,7 +16,7 @@ import com.iho.sn.referentiel.remote.model.LitDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDetailDs;
 import com.iho.sn.referentiel.remote.model.MedicamentDs;
 import com.iho.sn.referentiel.remote.model.ServicePartenaireDs;
-import com.iho.sn.referentiel.remote.model.TrancheAgeDs;
+import com.iho.sn.dossiermedical.patient.remote.model.TrancheAgeDs;
 import com.iho.sn.referentiel.remote.model.TypeDocumentDs;
 import com.iho.sn.referentiel.service.ReferentielService;
 import lombok.RequiredArgsConstructor;
@@ -202,27 +202,6 @@ public class ReferentielAssembler {
         servicePartenaire.setDescription(servicePartenaireDs.getDescription());
         servicePartenaire.setActif(servicePartenaireDs.isActif());
         return servicePartenaire;
-    }
-
-    public List<TrancheAgeDs> assembleEntitiesFromListTrancheAge(List<TrancheAge> trancheAges) {
-        return trancheAges.stream().map(this::assembleTrancheAgeDsfromEntity).toList();
-    }
-    public TrancheAgeDs assembleTrancheAgeDsfromEntity(TrancheAge trancheAge) {
-        TrancheAgeDs trancheAgeDs = new TrancheAgeDs();
-        trancheAgeDs.setId(trancheAge.getId());
-        trancheAgeDs.setCode(trancheAge.getCode());
-        trancheAgeDs.setLibelle(trancheAge.getLibelle());
-        trancheAgeDs.setActif(trancheAge.isActif());
-        return trancheAgeDs;
-    }
-
-    public TrancheAge assembleTrancheAgefromDs(TrancheAgeDs trancheAgeDs) {
-        TrancheAge trancheAge = new TrancheAge();
-        trancheAge.setId(trancheAgeDs.getId());
-        trancheAge.setCode(trancheAgeDs.getCode());
-        trancheAge.setLibelle(trancheAgeDs.getLibelle());
-        trancheAge.setActif(trancheAgeDs.isActif());
-        return trancheAge;
     }
 
     public TypeDocument assembleTypeDocumentFromDs(TypeDocumentDs typeDocumentDs) {
