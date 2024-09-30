@@ -27,6 +27,11 @@ public class UtilString {
         return "HOST_" + numFormat.format(poz);
     }
 
+    public static String createNumeroConsultation(int poz) {
+        DecimalFormat numFormat = new DecimalFormat("00000");
+        return "CONS_" + numFormat.format(poz);
+    }
+
     public static String getUrl(HttpServletRequest request) {
         String url = request.getRequestURL().toString();
         return url.replace(request.getServletPath(), "");

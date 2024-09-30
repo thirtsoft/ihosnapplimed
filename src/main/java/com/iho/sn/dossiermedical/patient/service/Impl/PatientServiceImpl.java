@@ -1,13 +1,13 @@
 package com.iho.sn.dossiermedical.patient.service.Impl;
 
-import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
-import com.iho.sn.dossiermedical.patient.repository.PatientRepositry;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
+import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
+import com.iho.sn.dossiermedical.patient.exception.PatientException;
+import com.iho.sn.dossiermedical.patient.repository.PatientRepositry;
 import com.iho.sn.dossiermedical.patient.repository.TrancheAgeRepository;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
-import com.iho.sn.dossiermedical.patient.exception.PatientException;
-import com.iho.sn.utils.MessageException;
-import lombok.AllArgsConstructor;
+import com.iho.sn.message.Message;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepositry patientRepositry;
@@ -24,7 +24,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient savePatient(Patient patient) {
         if (patient == null)
-            throw new PatientException(MessageException.NULL_OBJECT);
+            throw new PatientException(Message.NULL_OBJECT);
         String code = patient.getCode();
         Optional<Patient> byCode = patientRepositry.findByCode(code);
         if (patient.getId() == null && byCode.isPresent()
@@ -40,17 +40,17 @@ public class PatientServiceImpl implements PatientService {
         patient.setActif(true);
         patient.setDateAdmission(new Date());
         Patient savePatient = patientRepositry.save(patient);
-        if (savePatient.getAge()>=0 && savePatient.getAge()<14) {
+        if (savePatient.getAge() >= 0 && savePatient.getAge() < 14) {
             TrancheAge trancheAge = new TrancheAge();
             trancheAge.setCode("ENF");
             trancheAge.setLibelle("Enfant");
             trancheAgeRepository.save(trancheAge);
-        }else if (savePatient.getAge()>=14 && savePatient.getAge()<18) {
+        } else if (savePatient.getAge() >= 14 && savePatient.getAge() < 18) {
             TrancheAge trancheAge = new TrancheAge();
             trancheAge.setCode("ADO");
             trancheAge.setLibelle("Adolescent");
             trancheAgeRepository.save(trancheAge);
-        }else if (savePatient.getAge()>=18 && savePatient.getAge()<45) {
+        } else if (savePatient.getAge() >= 18 && savePatient.getAge() < 45) {
             TrancheAge trancheAge = new TrancheAge();
             trancheAge.setCode("ADLT");
             trancheAge.setLibelle("Adulte");
@@ -132,9 +132,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void deletePatient(Long id) {
-Patient patient = findById(id);
-patient.setActif(false);
-patientRepositry.save(patient);
+        Patient patient = findById(id);
+        patient.setActif(false);
+        patientRepositry.save(patient);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.iho.sn.admin.remote.model;
 
-import com.iho.sn.referentiel.remote.model.ChambreDs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +24,7 @@ public class UtilisateurDs {
     private String prenom;
     @NotNull
     private String email;
-//    @NotNull
+    //    @NotNull
 //    private String profileCode;
     private String matricule;
     private String civilite;

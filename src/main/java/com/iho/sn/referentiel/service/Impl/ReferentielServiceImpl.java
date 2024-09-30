@@ -1,12 +1,13 @@
 package com.iho.sn.referentiel.service.Impl;
 
+import com.iho.sn.dossiermedical.patient.repository.TrancheAgeRepository;
+import com.iho.sn.message.Message;
 import com.iho.sn.referentiel.entity.CategoryMedicament;
 import com.iho.sn.referentiel.entity.Chambre;
 import com.iho.sn.referentiel.entity.GroupeSanguin;
 import com.iho.sn.referentiel.entity.Lit;
 import com.iho.sn.referentiel.entity.Medicament;
 import com.iho.sn.referentiel.entity.ServicePartenaire;
-import com.iho.sn.dossiermedical.patient.entity.TrancheAge;
 import com.iho.sn.referentiel.entity.TypeDocument;
 import com.iho.sn.referentiel.exception.ReferentielException;
 import com.iho.sn.referentiel.repository.CategoryMedicamentRepository;
@@ -15,19 +16,17 @@ import com.iho.sn.referentiel.repository.GroupeSanguinRepository;
 import com.iho.sn.referentiel.repository.LitRepository;
 import com.iho.sn.referentiel.repository.MedicamentRepository;
 import com.iho.sn.referentiel.repository.ServicePartenaireRepository;
-import com.iho.sn.dossiermedical.patient.repository.TrancheAgeRepository;
 import com.iho.sn.referentiel.repository.TypeDocumentRepository;
 import com.iho.sn.referentiel.service.ReferentielService;
 import com.iho.sn.utils.ConstantSigps;
-import com.iho.sn.utils.MessageException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ReferentielServiceImpl implements ReferentielService {
 
     private final CategoryMedicamentRepository categoryMedicamentRepository;
@@ -49,7 +48,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveCategoryMedicament(CategoryMedicament medicament) throws ReferentielException {
         if (medicament == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = medicament.getCode();
         Optional<CategoryMedicament> byCode = categoryMedicamentRepository.findByCode(code);
         if (medicament.getId() == null && byCode.isPresent()
@@ -68,7 +67,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         CategoryMedicament medicamentResult = categoryMedicamentRepository.findCategoryMedicamentById(id);
         if (medicamentResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         medicamentResult.setCode(medicament.getCode());
         medicamentResult.setLibelle(medicament.getLibelle());
@@ -108,7 +107,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveMedicament(Medicament medicament) throws ReferentielException {
         if (medicament == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = medicament.getCode();
         Optional<Medicament> byCode = medicamentRepository.findByCode(code);
         if (medicament.getId() == null && byCode.isPresent()
@@ -127,7 +126,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Medicament medicamentResult = medicamentRepository.findCategoryMedicamentById(id);
         if (medicamentResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         medicamentResult.setCode(medicament.getCode());
         medicamentResult.setLibelle(medicament.getLibelle());
@@ -168,7 +167,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveChambre(Chambre chambre) throws ReferentielException {
         if (chambre == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = chambre.getCode();
         Optional<Chambre> byCode = chambreRepository.findByCode(code);
         if (chambre.getId() == null && byCode.isPresent()
@@ -187,7 +186,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Chambre chambreResult = chambreRepository.findChambreById(id);
         if (chambreResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         chambreResult.setCode(chambre.getCode());
         chambreResult.setLibelle(chambre.getLibelle());
@@ -202,12 +201,12 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     @Override
     public Chambre findChambreById(Long id) {
-       return chambreRepository.findById(id).orElseThrow(()-> new ReferentielException("La chambre avec l'id " + id + "n'est pas trouvé"));
+        return chambreRepository.findById(id).orElseThrow(() -> new ReferentielException("La chambre avec l'id " + id + "n'est pas trouvé"));
     }
 
     @Override
     public Chambre findChambreByCode(String code) {
-        return chambreRepository.findByCode(code).orElseThrow(()-> new ReferentielException("La chambre avec le code " + code + "n'est pas trouvé"));
+        return chambreRepository.findByCode(code).orElseThrow(() -> new ReferentielException("La chambre avec le code " + code + "n'est pas trouvé"));
     }
 
     @Override
@@ -226,7 +225,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveLit(Lit lit) throws ReferentielException {
         if (lit == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = lit.getNumero();
         Optional<Lit> byCode = litRepository.findByNumero(code);
         if (lit.getId() == null && byCode.isPresent()
@@ -246,7 +245,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         Lit litResult = litRepository.findLitById(id);
         if (litResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         litResult.setNumero(lit.getNumero());
         litResult.setChambreId(lit.getChambreId());
@@ -282,12 +281,12 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     @Override
     public Lit findLitById(Long id) {
-        return litRepository.findById(id).orElseThrow(()-> new ReferentielException("Le lit avec l'id" + id + "n'est pas trouvé"));
+        return litRepository.findById(id).orElseThrow(() -> new ReferentielException("Le lit avec l'id" + id + "n'est pas trouvé"));
     }
 
     @Override
     public Lit findLitByCode(String code) {
-        return litRepository.findByNumero(code).orElseThrow(()-> new ReferentielException("Le lit avec le numéro " + code + "n'est pas trouvé"));
+        return litRepository.findByNumero(code).orElseThrow(() -> new ReferentielException("Le lit avec le numéro " + code + "n'est pas trouvé"));
     }
 
     @Override
@@ -305,7 +304,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public List<Lit> findAllByChambre(Long chambreId) {
         if (chambreId == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         return litRepository.findAllByChambre(chambreId);
     }
@@ -314,7 +313,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveServicePartenaire(ServicePartenaire servicePartenaire) throws ReferentielException {
         if (servicePartenaire == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = servicePartenaire.getCode();
         Optional<ServicePartenaire> byCode = servicePartenaireRepository.findByCode(code);
         if (servicePartenaire.getId() == null && byCode.isPresent()
@@ -333,7 +332,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         ServicePartenaire servicePartenaireResult = servicePartenaireRepository.findServicePartenaireById(id);
         if (servicePartenaireResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         servicePartenaireResult.setCode(servicePartenaire.getCode());
         servicePartenaireResult.setLibelle(servicePartenaire.getLibelle());
@@ -349,12 +348,12 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     @Override
     public ServicePartenaire findServicePartenaireById(Long id) {
-        return servicePartenaireRepository.findById(id).orElseThrow(()-> new ReferentielException("Service partenaire avec l'id " + id + "n'est pas trouvé"));
+        return servicePartenaireRepository.findById(id).orElseThrow(() -> new ReferentielException("Service partenaire avec l'id " + id + "n'est pas trouvé"));
     }
 
     @Override
     public ServicePartenaire findServicePartenaireByCode(String code) {
-        return servicePartenaireRepository.findByCode(code).orElseThrow(()-> new ReferentielException("Service partenaire avec le code " + code + "n'est pas trouvé"));
+        return servicePartenaireRepository.findByCode(code).orElseThrow(() -> new ReferentielException("Service partenaire avec le code " + code + "n'est pas trouvé"));
     }
 
     @Override
@@ -373,7 +372,7 @@ public class ReferentielServiceImpl implements ReferentielService {
     @Override
     public Long saveGroupeSanguin(GroupeSanguin groupeSanguin) throws ReferentielException {
         if (groupeSanguin == null)
-            throw new ReferentielException(MessageException.NULL_OBJECT);
+            throw new ReferentielException(Message.NULL_OBJECT);
         String code = groupeSanguin.getCode();
         Optional<GroupeSanguin> byCode = groupeSanguinRepository.findByCode(code);
         if (groupeSanguin.getId() == null && byCode.isPresent()
@@ -392,7 +391,7 @@ public class ReferentielServiceImpl implements ReferentielService {
         }
         GroupeSanguin groupeSanguinResult = groupeSanguinRepository.findGroupeSanguinById(id);
         if (groupeSanguinResult == null) {
-            throw new ReferentielException(MessageException.NOT_FOUND_OBJECT);
+            throw new ReferentielException(Message.NOT_FOUND_OBJECT);
         }
         groupeSanguinResult.setCode(groupeSanguin.getCode());
         groupeSanguinResult.setDescription(groupeSanguin.getDescription());
@@ -407,12 +406,12 @@ public class ReferentielServiceImpl implements ReferentielService {
 
     @Override
     public GroupeSanguin findGroupeSanguinById(Long id) {
-        return groupeSanguinRepository.findById(id).orElseThrow(()-> new ReferentielException("Groupe sanguin avec l'id " + id + "n'est pas trouvé"));
+        return groupeSanguinRepository.findById(id).orElseThrow(() -> new ReferentielException("Groupe sanguin avec l'id " + id + "n'est pas trouvé"));
     }
 
     @Override
     public GroupeSanguin findGroupeSanguinByCode(String code) {
-        return groupeSanguinRepository.findByCode(code).orElseThrow(()-> new ReferentielException("Groupe sanguin avec le code " + code + "n'est pas trouvé"));
+        return groupeSanguinRepository.findByCode(code).orElseThrow(() -> new ReferentielException("Groupe sanguin avec le code " + code + "n'est pas trouvé"));
     }
 
     @Override
