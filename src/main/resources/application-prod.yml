@@ -2,9 +2,9 @@ server:
   port: 8094
 spring:
   datasource:
-    url: jdbc:postgresql://erbcghapXClkgbIiJoGPadTMrdMCkNUx@junction.proxy.rlwy.net:35731/railway
-    username: postgres
-    password: erbcghapXClkgbIiJoGPadTMrdMCkNUx
+    url: jdbc:postgresql://c724r43q8jp5nk.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com:5432/d312222tgr9ops
+    username: u5bc5agk9tcdir
+    password: p90a8de68acc83af12181f0106b36a94a9de3b93db66a307d76c2bc61775d0f09
 
   main:
     allow-circular-references: true

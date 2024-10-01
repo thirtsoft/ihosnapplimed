@@ -3,26 +3,11 @@ package com.iho.sn;
 import com.iho.sn.admin.repository.ActionRepository;
 import com.iho.sn.admin.repository.ProfilRepository;
 import com.iho.sn.admin.repository.UtilisateurRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.DiscussionRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.ExamenComplementaireRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.HospitalisationRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.SyntheseRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.TraitementMedicalItemRepository;
-import com.iho.sn.dossiermedical.hospitalisation.repository.TraitementMedicalRepository;
 import com.iho.sn.dossiermedical.patient.repository.PatientRepositry;
-import com.iho.sn.referentiel.entity.ElementExamenDermatologique;
-import com.iho.sn.referentiel.entity.ElementHypothese;
-import com.iho.sn.referentiel.entity.ElementPlainte;
-import com.iho.sn.referentiel.entity.ElementRechercheNotion;
-import com.iho.sn.referentiel.entity.ElementTerrain;
-import com.iho.sn.referentiel.entity.SousElementDermatoseInf;
-import com.iho.sn.referentiel.entity.SousElementHypothese;
 import com.iho.sn.referentiel.repository.ElementExamenDermatologiqueRepository;
 import com.iho.sn.referentiel.repository.ElementHypotheseRepository;
 import com.iho.sn.referentiel.repository.ElementPlainteRepository;
-import com.iho.sn.referentiel.repository.ElementRechercheNotionRepository;
 import com.iho.sn.referentiel.repository.ElementTerrainRepository;
-import com.iho.sn.referentiel.repository.MedicamentRepository;
 import com.iho.sn.referentiel.repository.SousElementDermatoseInfRepository;
 import com.iho.sn.referentiel.repository.SousElementHypotheseRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +16,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
-
-import static java.util.Set.of;
 
 
 @SpringBootApplication
@@ -80,7 +61,7 @@ public class IhosnapplimedApplication implements CommandLineRunner {
         String motDePasse = passwordEncoder.encode("root");
         Utilisateur tairou = Utilisateur.builder()
                 .email("saliouwourydiallokk@gmail.com")
-                .prenom("Tairou")
+                .prenom("Saliou")
                 .nom("Diallo")
                 .matricule(genererMatricule())
                 .motdepasse(motDePasse)
@@ -89,9 +70,9 @@ public class IhosnapplimedApplication implements CommandLineRunner {
                 .build();
         TimeUnit.SECONDS.sleep(2);
         Utilisateur saliou = Utilisateur.builder()
-                .email("saliouwourydiallo3kk@gmail.com")
-                .prenom("Saliou Woury")
-                .nom("Diallo")
+                .email("hilairesarr@gmail.com")
+                .prenom("Hilaire")
+                .nom("Sarr")
                 .matricule(genererMatricule())
                 .motdepasse(motDePasse)
                 .profil(profileAdmin)
@@ -100,7 +81,7 @@ public class IhosnapplimedApplication implements CommandLineRunner {
         TimeUnit.SECONDS.sleep(2);
         Utilisateur tahirou = Utilisateur.builder()
                 .email("thirdiallo@gmail.com")
-                .prenom("Mamadou Tahirou")
+                .prenom("Tairou")
                 .nom("Diallo")
                 .matricule(genererMatricule())
                 .motdepasse(motDePasse)
@@ -108,7 +89,7 @@ public class IhosnapplimedApplication implements CommandLineRunner {
                 .actif(true)
                 .build();
         utilisateurRepository.saveAll(of(tairou, saliou, tahirou));
+        */
 
-         */
     }
 }

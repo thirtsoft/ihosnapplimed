@@ -2,9 +2,9 @@ server:
   port: 8094
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/iho_snapplimed
+    url: jdbc:postgresql://postgres:erbcghapXClkgbIiJoGPadTMrdMCkNUx@postgres.railway.internal:5432/railway
     username: postgres
-    password: Windev2018
+    password: erbcghapXClkgbIiJoGPadTMrdMCkNUx
   main:
     allow-circular-references: true
   jpa:
