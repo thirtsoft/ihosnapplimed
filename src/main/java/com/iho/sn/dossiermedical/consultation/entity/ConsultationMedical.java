@@ -47,12 +47,7 @@ public class ConsultationMedical extends AbstractAuditableEntity implements Seri
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "constance_physique_uid")
     private ConstancePhysique constancePhysique;
-
-    /*
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "interrogation_uid")
-    private Interrogation interrogation;*/
-
+    
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "elementrecherchenotion_consultationmedical",
             joinColumns = @JoinColumn(name = "consultation_medical_uid"))
@@ -88,13 +83,6 @@ public class ConsultationMedical extends AbstractAuditableEntity implements Seri
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "bilan_paraclinique_uid")
     private BilanParaclinique bilanParaclinique;
-
-    /*
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "elementhypothese_consultationmedical",
-            joinColumns = @JoinColumn(name = "consultation_medical_uid"))
-    @Column(name = "element_hypothese_uid")
-    private Set<Long> elementHypotheses;*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "elementhypothese_consultationmedical",
