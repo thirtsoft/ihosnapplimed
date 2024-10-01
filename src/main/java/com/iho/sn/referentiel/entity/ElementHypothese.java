@@ -29,13 +29,6 @@ public class ElementHypothese extends AbstractAuditableEntity implements Seriali
     @Column(unique = true)
     private String libelle;
 
-    /*
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "souselementhypothese_par_elementhypothese",
-            joinColumns = @JoinColumn(name = "element_hypothese_uid"))
-    @Column(name = "sous_element_hypothese_uid")
-    private Set<Long> sousElementHypothese;*/
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "souselementhypothese_par_elementhypothese",
             joinColumns = @JoinColumn(name = "element_hypothese_uid"),
