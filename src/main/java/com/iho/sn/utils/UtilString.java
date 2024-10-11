@@ -23,12 +23,12 @@ public class UtilString {
     }
 
     public static String createNumeroHospitalisation(int poz) {
-        DecimalFormat numFormat = new DecimalFormat("00000");
+        DecimalFormat numFormat = new DecimalFormat("00");
         return "HOST_" + numFormat.format(poz);
     }
 
     public static String createNumeroConsultation(int poz) {
-        DecimalFormat numFormat = new DecimalFormat("00000");
+        DecimalFormat numFormat = new DecimalFormat("00");
         return "CONS_" + numFormat.format(poz);
     }
 

@@ -11,6 +11,7 @@ public class ConsultationMedicalSearchDs {
     private String code;
     private LocalDate from;
     private LocalDate to;
+    private String numero;
 
 
     public boolean estRempli() {

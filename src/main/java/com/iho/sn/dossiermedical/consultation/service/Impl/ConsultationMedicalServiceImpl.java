@@ -4,7 +4,9 @@ import com.iho.sn.dossiermedical.consultation.entity.ConsultationMedical;
 import com.iho.sn.dossiermedical.consultation.exception.ConsultationMedicalException;
 import com.iho.sn.dossiermedical.consultation.remote.model.ConsultationMedicalSearchDs;
 import com.iho.sn.dossiermedical.consultation.repository.ConsultationMedicalRepository;
+import com.iho.sn.dossiermedical.consultation.repository.spec.ConsSpecs;
 import com.iho.sn.dossiermedical.consultation.service.ConsultationMedicalService;
+import com.iho.sn.dossiermedical.hospitalisation.repository.spec.HospiSpecs;
 import com.iho.sn.dossiermedical.patient.entity.Patient;
 import com.iho.sn.dossiermedical.patient.service.PatientService;
 import com.iho.sn.message.Message;
@@ -66,8 +68,7 @@ public class ConsultationMedicalServiceImpl implements ConsultationMedicalServic
 
     @Override
     public List<ConsultationMedical> findByCriteria(ConsultationMedicalSearchDs searchCriteria) {
-        return null;
-        //  return consultationMedicalRepository.findAll(new ConsSpecs(searchCriteria));
+        return consultationMedicalRepository.findAll(new ConsSpecs(searchCriteria));
     }
 
     @Override

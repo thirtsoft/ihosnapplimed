@@ -28,6 +28,9 @@ public class ConsSpecs implements Specification<ConsultationMedical> {
         if (!isBlank(searchDs.getCode())) {
             predicates.add(criteriaBuilder.equal(root.get(ConsultationMedical_.code), searchDs.getCode()));
         }
+        if (!isBlank(searchDs.getNumero())) {
+            predicates.add(criteriaBuilder.equal(root.get(ConsultationMedical_.numeroConsultation), searchDs.getNumero()));
+        }
         if (searchDs.estRempli()) {
             predicates.add(criteriaBuilder
                     .between(root.get(ConsultationMedical_.dateConsultation), searchDs.getFrom(), searchDs.getTo()));

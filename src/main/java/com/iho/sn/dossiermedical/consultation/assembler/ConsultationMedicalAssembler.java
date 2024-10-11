@@ -44,6 +44,12 @@ public class ConsultationMedicalAssembler {
         String patient = foundPatientbyCode.getPrenom() + " " + foundPatientbyCode.getNom();
         Utilisateur foundUser = utilisateurService.findUtilisateurByMatricule(consultationMedical.getCreatedByUser());
         String user = foundUser.getPrenom() + " " + foundUser.getNom();
+        String typePatientConsulte = "";
+        if (consultationMedical.getTypePatient() == 1) {
+            typePatientConsulte = "Homme";
+        } else {
+            typePatientConsulte = "Femme";
+        }
         return ConsultationMedicalListeDs.builder()
                 .id(consultationMedical.getId())
                 .dateConsultation(consultationMedical.getDateConsultation())
@@ -52,6 +58,7 @@ public class ConsultationMedicalAssembler {
                 .nomCompletPatient(patient)
                 .nomCompletAgent(user)
                 .typePatient(consultationMedical.getTypePatient())
+                .patientConsulte(typePatientConsulte)
                 .build();
     }
 
@@ -121,6 +128,7 @@ public class ConsultationMedicalAssembler {
                 .civilitePatient(foundPatientbyCode.getCivilite())
                 .telephone(foundPatientbyCode.getNumeroTelephone())
                 .indexPatient(foundPatientbyCode.getCode())
+                .age(foundPatientbyCode.getAge())
                 .situationMatrimonial(foundPatientbyCode.getSituationMatrimonial())
                 .nomCompletAgent(user)
                 .numeroConsultation(createNumeroConsultation(consultationMedical.getNumeroConsultation()))

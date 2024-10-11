@@ -29,6 +29,8 @@ public class ConsultationMedicalDetailsDs {
 
     private String situationMatrimonial;
 
+    private int age;
+
     private String telephone;
 
     private String indexPatient;

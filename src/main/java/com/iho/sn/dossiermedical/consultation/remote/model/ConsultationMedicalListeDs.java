@@ -23,7 +23,7 @@ public class ConsultationMedicalListeDs {
 
     private int typePatient;
 
-    private String patientHospitalise;
+    private String patientConsulte;
 
     private LocalDate dateConsultation;
 
